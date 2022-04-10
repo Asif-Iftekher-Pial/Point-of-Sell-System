@@ -6,27 +6,27 @@
         <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
         <meta name="author" content="Coderthemes">
 
-        <link rel="shortcut icon" href="images/favicon_1.ico">
+        <link rel="shortcut icon" href="{{ asset('backend/images/favicon_1.ico') }}">
 
         <title>POS - Admin Login</title>
 
         <!-- Base Css Files -->
-        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <link href="{{ asset('backend/css/bootstrap.min.css') }}" rel="stylesheet" />
 
         <!-- Font Icons -->
-        <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-        <link href="assets/ionicon/css/ionicons.min.css" rel="stylesheet" />
-        <link href="css/material-design-iconic-font.min.css" rel="stylesheet">
+        <link href="{{ asset('backend/assets/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('backend/assets/ionicon/css/ionicons.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('backend/css/material-design-iconic-font.min.css') }}" rel="stylesheet">
 
         <!-- animate css -->
-        <link href="css/animate.css" rel="stylesheet" />
+        <link href="{{ asset('backend/css/animate.css') }}" rel="stylesheet" />
 
         <!-- Waves-effect -->
-        <link href="css/waves-effect.css" rel="stylesheet">
+        <link href="{{ asset('backend/css/waves-effect.css') }}" rel="stylesheet">
 
         <!-- Custom Files -->
-        <link href="css/helper.css" rel="stylesheet" type="text/css" />
-        <link href="css/style.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('backend/css/helper.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('backend/css/style.css') }}" rel="stylesheet" type="text/css" />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,7 +35,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
 
-        <script src="js/modernizr.min.js"></script>
+        <script src="{{ asset('backend/js/modernizr.min.js') }}"></script>
         
     </head>
     <body>
@@ -100,20 +100,20 @@
     	<script>
             var resizefunc = [];
         </script>
-    	<script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/waves.js"></script>
-        <script src="js/wow.min.js"></script>
-        <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
-        <script src="js/jquery.scrollTo.min.js"></script>
-        <script src="assets/jquery-detectmobile/detect.js"></script>
-        <script src="assets/fastclick/fastclick.js"></script>
-        <script src="assets/jquery-slimscroll/jquery.slimscroll.js"></script>
-        <script src="assets/jquery-blockui/jquery.blockUI.js"></script>
+    	<script src="{{ asset('backend/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('backend/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('backend/js/waves.js') }}"></script>
+        <script src="{{ asset('backend/js/wow.min.js') }}"></script>
+        <script src="{{ asset('backend/js/jquery.nicescroll.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('backend/js/jquery.scrollTo.min.js') }}"></script>
+        <script src="{{ asset('backend/assets/jquery-detectmobile/detect.js') }}"></script>
+        <script src="{{ asset('backend/assets/fastclick/fastclick.js') }}"></script>
+        <script src="{{ asset('backend/assets/jquery-slimscroll/jquery.slimscroll.js') }}"></script>
+        <script src="{{ asset('backend/assets/jquery-blockui/jquery.blockUI.js') }}"></script>
 
 
         <!-- CUSTOM JS -->
-        <script src="js/jquery.app.js"></script>
+        <script src="{{ asset('backend/js/jquery.app.js') }}"></script>
 	
 	</body>
 </html>

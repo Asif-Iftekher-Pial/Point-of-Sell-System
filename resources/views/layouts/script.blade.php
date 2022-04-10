@@ -3,6 +3,7 @@
 </script>
 
 <!-- jQuery  -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="{{ asset('backend/js/jquery.min.js') }}"></script>
 <script src="{{ asset('backend/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('backend/js/waves.js') }}"></script>
@@ -45,7 +46,29 @@
 
 <!-- Todo -->
 <script src="{{ asset('backend/js/jquery.todo.js') }}"></script>
-
+{{-- toastr --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js" integrity="sha512-R1bjo9slUbuOZw+h4aIf3iA2KvEWHpJ96w0Wbrn+1CMrQPeI44dpGYg3g6t3p/y16CR9KbJoe3UA+2zYngogJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    @if (Session::has('messege'))
+    alert('got')
+    var type="{{ Session::get('alert-type','info') }}"
+    switch(type){
+        case 'info' :
+            toastr.info("{{ Session::get('messege') }}");
+            break;
+        case 'success' :
+            toastr.success("{{ Session::get('messege') }}");
+            break;
+        case 'warning' :
+            toastr.warning("{{ Session::get('messege') }}");
+            break;
+        case 'error' :
+            toastr.error("{{ Session::get('messege') }}");
+            break;
+        
+    } 
+    @endif
+</script>
 <script type="text/javascript">
     jQuery(document).ready(function($) {
         $('.counter').counterUp({

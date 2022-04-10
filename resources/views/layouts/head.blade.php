@@ -26,7 +26,7 @@
     <!-- Custom Files -->
     <link href="{{ asset('backend/css/helper.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('backend/css/style.css') }}" rel="stylesheet" type="text/css" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" integrity="sha512-OBqw+EqQ6cLascdn6suVrhnj69lJINTc0HOHf06HdHwLVtrpSLLROoIbT6LH+LcjIYeuh+lgQbJQOOyuxh/RBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
