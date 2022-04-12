@@ -20,11 +20,13 @@ use App\Http\Controllers\auth\AuthenticationController;
 
 // login and registration
 
-route::get('/login',[AuthenticationController::class,'login'])->name('login');
-route::get('/registration',[AuthenticationController::class,'registration'])->name('registration');
+route::get('/login',[AuthenticationController::class,'loginPage'])->name('login');
+route::get('/registration',[AuthenticationController::class,'registrationPage'])->name('registration');
 
 route::post('/new-user',[AuthenticationController::class,'saveUser'])->name('register');
+route::post('/login-user',[AuthenticationController::class,'login'])->name('Do.login');
 
 //Dashboard
 
-route::get('/',[HomeController::class,'home']);
+route::get('/',[HomeController::class,'home'])->name('home');
+route::get('/logout',[AuthenticationController::class,'logout'])->name('logout');

@@ -1,66 +1,82 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
-        <meta name="author" content="Coderthemes">
 
-        <link rel="shortcut icon" href="{{ asset('backend/images/favicon_1.ico') }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+    <meta name="author" content="Coderthemes">
 
-        <title>POS - Admin Login</title>
+    <link rel="shortcut icon" href="{{ asset('backend/images/favicon_1.ico') }}">
 
-        <!-- Base Css Files -->
-        <link href="{{ asset('backend/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <title>POS - Admin Login</title>
 
-        <!-- Font Icons -->
-        <link href="{{ asset('backend/assets/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
-        <link href="{{ asset('backend/assets/ionicon/css/ionicons.min.css') }}" rel="stylesheet" />
-        <link href="{{ asset('backend/css/material-design-iconic-font.min.css') }}" rel="stylesheet">
+    <!-- Base Css Files -->
+    <link href="{{ asset('backend/css/bootstrap.min.css') }}" rel="stylesheet" />
 
-        <!-- animate css -->
-        <link href="{{ asset('backend/css/animate.css') }}" rel="stylesheet" />
+    <!-- Font Icons -->
+    <link href="{{ asset('backend/assets/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('backend/assets/ionicon/css/ionicons.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('backend/css/material-design-iconic-font.min.css') }}" rel="stylesheet">
 
-        <!-- Waves-effect -->
-        <link href="{{ asset('backend/css/waves-effect.css') }}" rel="stylesheet">
+    <!-- animate css -->
+    <link href="{{ asset('backend/css/animate.css') }}" rel="stylesheet" />
 
-        <!-- Custom Files -->
-        <link href="{{ asset('backend/css/helper.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('backend/css/style.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Waves-effect -->
+    <link href="{{ asset('backend/css/waves-effect.css') }}" rel="stylesheet">
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
+    <!-- Custom Files -->
+    <link href="{{ asset('backend/css/helper.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend/css/style.css') }}" rel="stylesheet" type="text/css" />
+    {{-- toastr notification --}}
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css"
+        integrity="sha512-OBqw+EqQ6cLascdn6suVrhnj69lJINTc0HOHf06HdHwLVtrpSLLROoIbT6LH+LcjIYeuh+lgQbJQOOyuxh/RBA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
+        
+        
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
 
-        <script src="{{ asset('backend/js/modernizr.min.js') }}"></script>
-        
-    </head>
-    <body>
+    <script src="{{ asset('backend/js/modernizr.min.js') }}"></script>
+
+</head>
+
+<body>
 
 
-        <div class="wrapper-page">
-            <div class="panel panel-color panel-primary panel-pages">
-                <div class="panel-heading bg-img"> 
-                    <div class="bg-overlay"></div>
-                    <h3 class="text-center m-t-10 text-white"> Sign In to <strong>Moltran</strong> </h3>
-                </div> 
+    <div class="wrapper-page">
+        <div class="panel panel-color panel-primary panel-pages">
+            <div class="panel-heading bg-img">
+                <div class="bg-overlay"></div>
+                <h3 class="text-center m-t-10 text-white"> Sign In to <strong>Moltran</strong> </h3>
+            </div>
 
 
-                <div class="panel-body">
-                <form class="form-horizontal m-t-20" action="index.html">
+            <div class="panel-body">
+                <form method="POST" class="form-horizontal m-t-20" action="{{ route('Do.login') }}">
+                    @csrf
                     
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <input class="form-control input-lg " type="text" required="" placeholder="Username">
+                            @error('email')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                            <input class="form-control input-lg " name="email" type="text" required="" placeholder="Email">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control input-lg" type="password" required="" placeholder="Password">
+                            @error('password')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                            <input class="form-control input-lg" name="password" type="password" required="" placeholder="Password">
                         </div>
                     </div>
 
@@ -72,13 +88,14 @@
                                     Remember me
                                 </label>
                             </div>
-                            
+
                         </div>
                     </div>
-                    
+
                     <div class="form-group text-center m-t-40">
                         <div class="col-xs-12">
-                            <button class="btn btn-primary btn-lg w-lg waves-effect waves-light" type="submit">Log In</button>
+                            <button class="btn btn-primary btn-lg w-lg waves-effect waves-light" type="submit">Log
+                                In</button>
                         </div>
                     </div>
 
@@ -87,33 +104,60 @@
                             <a href="recoverpw.html"><i class="fa fa-lock m-r-5"></i> Forgot your password?</a>
                         </div>
                         <div class="col-sm-5 text-right">
-                            <a href="register.html">Create an account</a>
+                            <a href="{{ route('registration') }}">Create an account</a>
                         </div>
                     </div>
-                </form> 
-                </div>                                 
-                
+                </form>
             </div>
+
         </div>
+    </div>
 
+
+    <script>
+        var resizefunc = [];
+    </script>
+    <script src="{{ asset('backend/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('backend/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('backend/js/waves.js') }}"></script>
+    <script src="{{ asset('backend/js/wow.min.js') }}"></script>
+    <script src="{{ asset('backend/js/jquery.nicescroll.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('backend/js/jquery.scrollTo.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/jquery-detectmobile/detect.js') }}"></script>
+    <script src="{{ asset('backend/assets/fastclick/fastclick.js') }}"></script>
+    <script src="{{ asset('backend/assets/jquery-slimscroll/jquery.slimscroll.js') }}"></script>
+    <script src="{{ asset('backend/assets/jquery-blockui/jquery.blockUI.js') }}"></script>
+
+
+    <!-- CUSTOM JS -->
+    <script src="{{ asset('backend/js/jquery.app.js') }}"></script>
+    {{-- toastr notification --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"
+        integrity="sha512-R1bjo9slUbuOZw+h4aIf3iA2KvEWHpJ96w0Wbrn+1CMrQPeI44dpGYg3g6t3p/y16CR9KbJoe3UA+2zYngogJA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {{-- toastr notification --}}
+    <script>
+        @if (Session::has('T-messege'))
+            var type="{{ Session::get('alert-type', 'info') }}"
+            switch(type){
+            case 'info' :
+            toastr.info("{{ Session::get('T-messege') }}");
+            break;
+            case 'success' :
+            toastr.success("{{ Session::get('T-messege') }}");
+            break;
+            case 'warning' :
+            toastr.warning("{{ Session::get('T-messege') }}");
+            break;
+            case 'error' :
+            toastr.error("{{ Session::get('T-messege') }}");
+            break;
         
-    	<script>
-            var resizefunc = [];
-        </script>
-    	<script src="{{ asset('backend/js/jquery.min.js') }}"></script>
-        <script src="{{ asset('backend/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('backend/js/waves.js') }}"></script>
-        <script src="{{ asset('backend/js/wow.min.js') }}"></script>
-        <script src="{{ asset('backend/js/jquery.nicescroll.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('backend/js/jquery.scrollTo.min.js') }}"></script>
-        <script src="{{ asset('backend/assets/jquery-detectmobile/detect.js') }}"></script>
-        <script src="{{ asset('backend/assets/fastclick/fastclick.js') }}"></script>
-        <script src="{{ asset('backend/assets/jquery-slimscroll/jquery.slimscroll.js') }}"></script>
-        <script src="{{ asset('backend/assets/jquery-blockui/jquery.blockUI.js') }}"></script>
+            }
+        @endif
+    </script>
 
+</body>
 
-        <!-- CUSTOM JS -->
-        <script src="{{ asset('backend/js/jquery.app.js') }}"></script>
-	
-	</body>
 </html>

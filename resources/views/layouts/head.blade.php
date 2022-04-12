@@ -26,13 +26,17 @@
     <!-- Custom Files -->
     <link href="{{ asset('backend/css/helper.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('backend/css/style.css') }}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" integrity="sha512-OBqw+EqQ6cLascdn6suVrhnj69lJINTc0HOHf06HdHwLVtrpSLLROoIbT6LH+LcjIYeuh+lgQbJQOOyuxh/RBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+
+
+    {{-- toastr notification --}}
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <script src="{{ asset('backend/js/modernizr.min.js') }}"></script>
     

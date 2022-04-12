@@ -46,29 +46,34 @@
 
 <!-- Todo -->
 <script src="{{ asset('backend/js/jquery.todo.js') }}"></script>
+
 {{-- toastr --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js" integrity="sha512-R1bjo9slUbuOZw+h4aIf3iA2KvEWHpJ96w0Wbrn+1CMrQPeI44dpGYg3g6t3p/y16CR9KbJoe3UA+2zYngogJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{{-- toastr notification --}}
 <script>
-    @if (Session::has('messege'))
-    alert('got')
-    var type="{{ Session::get('alert-type','info') }}"
-    switch(type){
+    @if (Session::has('T-messege'))
+        var type="{{ Session::get('alert-type', 'info') }}"
+        switch(type){
         case 'info' :
-            toastr.info("{{ Session::get('messege') }}");
-            break;
+        toastr.info("{{ Session::get('T-messege') }}");
+        break;
         case 'success' :
-            toastr.success("{{ Session::get('messege') }}");
-            break;
+        toastr.success("{{ Session::get('T-messege') }}");
+        break;
         case 'warning' :
-            toastr.warning("{{ Session::get('messege') }}");
-            break;
+        toastr.warning("{{ Session::get('T-messege') }}");
+        break;
         case 'error' :
-            toastr.error("{{ Session::get('messege') }}");
-            break;
-        
-    } 
+        toastr.error("{{ Session::get('T-messege') }}");
+        break;
+    
+        }
     @endif
 </script>
+
+
 <script type="text/javascript">
     jQuery(document).ready(function($) {
         $('.counter').counterUp({
