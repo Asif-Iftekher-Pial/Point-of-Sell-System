@@ -47,6 +47,9 @@
 <!-- Todo -->
 <script src="{{ asset('backend/js/jquery.todo.js') }}"></script>
 
+{{-- sweet alert 2 --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 {{-- toastr --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
 integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
@@ -71,6 +74,12 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
         }
     @endif
+    // swal("Good job!", "You clicked the button!", "success");
+//     Swal.fire(
+//   'The Internet?',
+//   'That thing is still around?',
+//   'question'
+// );
 </script>
 
 
@@ -82,3 +91,15 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         });
     });
 </script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.jqueryui.min.js"></script>
+<script>
+    $(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+
+
+

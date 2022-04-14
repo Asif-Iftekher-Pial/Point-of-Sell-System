@@ -11,7 +11,7 @@
                         <li><a href="javascript:void(0)"><i class="md md-face-unlock"></i> Profile<div class="ripple-wrapper"></div></a></li>
                         <li><a href="javascript:void(0)"><i class="md md-settings"></i> Settings</a></li>
                         <li><a href="javascript:void(0)"><i class="md md-lock"></i> Lock screen</a></li>
-                        <li><a href="javascript:void(0)"><i class="md md-settings-power"></i> Logout</a></li>
+                        <li><a href="{{ route('logout') }}"><i class="md md-settings-power"></i> Logout</a></li>
                     </ul>
                 </div>
                 
@@ -22,15 +22,13 @@
         <div id="sidebar-menu">
             <ul>
                 <li>
-                    <a href="index.html" class="waves-effect active"><i class="md md-home"></i><span> Dashboard </span></a>
+                    <a href="{{ route('home') }}" class="waves-effect active"><i class="md md-home"></i><span> Dashboard </span></a>
                 </li>
 
                 <li class="has_sub">
-                    <a href="#" class="waves-effect"><i class="md md-mail"></i><span> Mail </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                    <a href="#" class="waves-effect"><i class="ion-person"></i><span> Employee Section </span><span class="pull-right"><i class="md md-add"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="inbox.html">Inbox</a></li>
-                        <li><a href="email-compose.html">Compose Mail</a></li>
-                        <li><a href="email-read.html">View Mail</a></li>
+                        <li><a href="{{ route('employee.index') }}">All Employees</a></li>
                     </ul>
                 </li>
 

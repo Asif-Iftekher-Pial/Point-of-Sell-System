@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\home\HomeController;
+use App\Http\Controllers\Employees\EmployeeController;
 use App\Http\Controllers\auth\AuthenticationController;
 
 /*
@@ -30,3 +31,5 @@ route::post('/login-user',[AuthenticationController::class,'login'])->name('Do.l
 
 route::get('/',[HomeController::class,'home'])->name('home');
 route::get('/logout',[AuthenticationController::class,'logout'])->name('logout');
+
+route::resource('/employee',EmployeeController::class);
