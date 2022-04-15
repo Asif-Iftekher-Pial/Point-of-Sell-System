@@ -15,7 +15,7 @@ class Employee extends Model
         'phone',
         'address',
         'experience',
-        'photo',
+        'image',
         'salary',
         'vacation',
         'city',

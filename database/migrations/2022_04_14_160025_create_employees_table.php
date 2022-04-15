@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('phone');
             $table->longText('address');
             $table->string('experience');
-            $table->string('photo');
+            $table->string('image');
             $table->integer('salary');
             $table->string('vacation');
             $table->string('city');

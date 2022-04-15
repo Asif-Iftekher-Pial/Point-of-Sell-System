@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Employees;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -15,7 +16,9 @@ class EmployeeController extends Controller
     public function index()
     {
         $pageTitle= "All Employees";
-        return view('partials.employee.allEmployees',compact('pageTitle'));
+
+        $getData=Employee::all();
+        return view('partials.employee.allEmployees',compact('pageTitle','getData'));
     }
 
     /**
@@ -36,7 +39,42 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $filename = date('Ymdhms').'.'.$file->getClientOriginalExtension();
+            $file->move(public_path('backend/employee/images/'), $filename);
+        }
+
+       $data= Employee::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'image' => $filename,
+            'address' => $request->address,
+            'experience' => $request->experience,
+            'address' => $request->address,
+            'salary' => $request->salary,
+            'vacation' => $request->vacation,
+            'city' => $request->city,
+        ]);
+        if($data){
+            $notification=array(
+                // 'T-messege' => 'welcome '.$request->name.'!',
+                'T-messege' => 'Employee added successfully ',
+                'alert-type'=>'success'
+            );
+            return back()->with($notification);
+        }
+        else{
+            $notification=array(
+                // 'T-messege' => 'welcome '.$request->name.'!',
+                'T-messege' => 'Something went wrong ',
+                'alert-type'=>'error'
+            );
+            return back()->with($notification);
+        }
+       
     }
 
     /**
@@ -47,7 +85,18 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        //
+        // $getData= Employee::find($id);
+        // if($getData){
+        //     return view('partials.employee.allEmployees');
+        // }else{
+        //     $notification=array(
+        //         // 'T-messege' => 'welcome '.$request->name.'!',
+        //         'T-messege' => 'No data found ',
+        //         'alert-type'=>'error'
+        //     );
+        //     return back()->with($notification);
+        // }
+
     }
 
     /**
@@ -58,7 +107,21 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        //
+         $getData= Employee::find($id);
+        //  dd($getData);
+        if($getData){
+           return response()->json([
+            'status' => 200,
+            'retrivedData' =>$getData
+           ]);
+        }else{
+            $notification=array(
+                // 'T-messege' => 'welcome '.$request->name.'!',
+                'T-messege' => 'No data found ',
+                'alert-type'=>'error'
+            );
+            return back()->with($notification);
+        }
     }
 
     /**

@@ -2,9 +2,10 @@
     var resizefunc = [];
 </script>
 
+
 <!-- jQuery  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="{{ asset('backend/js/jquery.min.js') }}"></script>
+
 <script src="{{ asset('backend/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('backend/js/waves.js') }}"></script>
 <script src="{{ asset('backend/js/wow.min.js') }}"></script>
@@ -17,10 +18,7 @@
 <script src="{{ asset('backend/assets/jquery-slimscroll/jquery.slimscroll.js') }}"></script>
 <script src="{{ asset('backend/assets/jquery-blockui/jquery.blockUI.js') }}"></script>
 
-<!-- sweet alerts -->
-<script src="{{ asset('backend/assets/sweet-alert/sweet-alert.min.js') }}"></script>
-<script src="{{ asset('backend/assets/sweet-alert/sweet-alert.init.js') }}"></script>
-
+ 
 <!-- flot Chart -->
 <script src="{{ asset('backend/assets/flot-chart/jquery.flot.js') }}"></script>
 <script src="{{ asset('backend/assets/flot-chart/jquery.flot.time.js') }}"></script>
@@ -47,9 +45,17 @@
 <!-- Todo -->
 <script src="{{ asset('backend/js/jquery.todo.js') }}"></script>
 
-{{-- sweet alert 2 --}}
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{-- sweet alert  --}}
+<script src="{{ asset('backend/assets/sweet-alert/sweetalert.min.js') }}"></script>
 
+{{-- dataTable cdn --}}
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.jqueryui.min.js"></script>
+<script>
+    $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>
 {{-- toastr --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
 integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
@@ -74,15 +80,9 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
         }
     @endif
-    // swal("Good job!", "You clicked the button!", "success");
-//     Swal.fire(
-//   'The Internet?',
-//   'That thing is still around?',
-//   'question'
-// );
 </script>
-
-
+{{-- END dataTable cdn --}}
+{{-- number count --}}
 <script type="text/javascript">
     jQuery(document).ready(function($) {
         $('.counter').counterUp({
@@ -91,15 +91,37 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         });
     });
 </script>
-
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/dataTables.jqueryui.min.js"></script>
+{{-- image Upload thumbanile --}}
 <script>
-    $(document).ready(function() {
-    $('#example').DataTable();
-} );
+    function readURL(input){
+        // console.log('ok');
+        if(input.files && input.files[0]){
+            var reader = new FileReader();
+            reader.onload = function(e){
+                $('#image')
+                .attr('src' , e.target.result)
+                .width(80)
+                .height(90);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+{{-- image Update thumbanile --}}
+<script>
+    function readURLupdate(input){
+        // console.log('ok');
+        if(input.files && input.files[0]){
+            var reader = new FileReader();
+            reader.onload = function(e){
+                $('#Updateimage')
+                .attr('src' , e.target.result)
+                .width(80)
+                .height(90);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
 
-
-
+@yield('script')
