@@ -20,10 +20,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><strong>Add</strong> new employee</h4>
+                    <h4 class="modal-title"><strong>Add</strong> new customer</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('employee.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('customer.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
@@ -39,18 +39,24 @@
                                 <label class="control-label">Address</label>
                                 <input class="form-control form-white" required placeholder="Enter name" type="text"
                                     name="address" />
-                                <label class="control-label">Experience</label>
+                                <label class="control-label">Account Holder</label>
                                 <input class="form-control form-white" required placeholder="Enter name" type="text"
-                                    name="experience" />
-                                <label class="control-label">Salary</label>
+                                    name="account_holder" />
+                                <label class="control-label">Account Number</label>
                                 <input class="form-control form-white" required placeholder="Enter name" type="number"
-                                    name="salary" />
-                                <label class="control-label">Vacation</label>
+                                    name="account_number" />
+                                <label class="control-label">Bank Name</label>
                                 <input class="form-control form-white" required placeholder="Enter name" type="text"
-                                    name="vacation" />
+                                    name="bank_name" />
                                 <label class="control-label">City</label>
                                 <input class="form-control form-white" required placeholder="Enter name" type="text"
                                     name="city" />
+                                <label class="control-label">Branch Name</label>
+                                <input class="form-control form-white" required placeholder="Enter name" type="text"
+                                name="bank_branch" />
+                                <label class="control-label">Shop Name</label>
+                                <input class="form-control form-white" required placeholder="Enter name" type="text"
+                                name="shop_name" />
                                 <label class="control-label">Photo</label>
                                 <br>
                                 <img id="image" src="#" alt="No image">
@@ -60,8 +66,8 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
+                            <button type="button" class="btn btn-sm btn-default waves-effect" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-sm btn-success waves-effect waves-light">Save</button>
                         </div>
                     </form>
                 </div>
@@ -76,9 +82,8 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Employee Information</h3>
+                <h3 class="panel-title">Customer Information</h3>
             </div>
-
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -110,11 +115,13 @@
                                         <th>Email</th>
                                         <th>Photo</th>
                                         <th>Phone</th>
-                                        <th>Address</th>
-                                        <th>Experience</th>
-                                        <th>Salary</th>
-                                        <th>Vacation</th>
                                         <th>City</th>
+                                        <th>Address</th>
+                                        <th>Account Holder</th>
+                                        <th>Account Number</th>
+                                        <th>Bank Name</th>
+                                        <th>Bank Branch</th>
+                                       
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -122,10 +129,10 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
-                                                <a href="{{ route('employee.edit', $item->id) }}"
+                                                <a href="{{ route('customer.edit', $item->id) }}"
                                                     class="btn btn-sm btn-warning">Edit</a>
 
-                                                <form action="{{ route('employee.destroy', $item->id) }}" method="post">
+                                                <form action="{{ route('customer.destroy', $item->id) }}" method="post">
                                                     @method('delete')
                                                     @csrf
                                                     <button class="btn delete btn-sm btn-danger"data-id="{{ $item->id }}"><i
@@ -144,15 +151,16 @@
                                             <td>{{ $item->email }}</td>
                                             <td>
                                                 <img style="height:80px"
-                                                    src="{{ asset('backend/employee/images/' . $item->image) }}"
+                                                    src="{{ asset('backend/customer/images/' . $item->image) }}"
                                                     alt="No photo" srcset="">
                                             </td>
                                             <td>{{ $item->phone }}</td>
-                                            <td>{{ $item->address }}</td>
-                                            <td>{{ $item->experience }}</td>
-                                            <td>BDT-{{ $item->salary }}</td>
-                                            <td>{{ $item->vacation }}</td>
                                             <td>{{ $item->city }}</td>
+                                            <td>{{ $item->address }}</td>
+                                            <td>{{ $item->account_holder }}</td>
+                                            <td>{{ $item->account_number }}</td>
+                                            <td>{{ $item->bank_name }}</td>
+                                            <td>{{ $item->bank_branch }}</td>
                                         </tr>
                                     @endforeach
 

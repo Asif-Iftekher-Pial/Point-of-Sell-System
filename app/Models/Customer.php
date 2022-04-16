@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Employee extends Model
+class Customer extends Model
 {
     use HasFactory;
 
@@ -13,14 +13,15 @@ class Employee extends Model
         'name',
         'status',
         'email',
-        'phone',
-        'address',
-        'experience',
         'image',
-        'salary',
-        'vacation',
+        'address',
+        'phone',
         'city',
-        
+        'account_holder',
+        'account_number',
+        'bank_name',
+        'bank_branch',
+        'shop_name',
     ];
     
 }

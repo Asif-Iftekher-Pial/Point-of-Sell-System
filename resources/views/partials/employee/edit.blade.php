@@ -80,13 +80,19 @@
                         </div>
                     </div>
                     <div class="form-group ">
-                    <label class="control-label col-lg-2">Photo</label>
+                    <label class="control-label col-lg-2">Previous Photo</label>
                         <div class="col-lg-10">
-                            <img id="image" style="height:80px" src="" alt="No image">
-                            <input class="form-control" required accept="image/*" type="file" name="image"
-                            onchange="readURL(this);" />
+                            <img  style="height:80px" src="{{ asset('backend/employee/images/' . $getData->image) }}" alt="No image">
+                           
                         </div>
                     </div>
+                    <label class="control-label col-lg-2">Photo</label>
+                    <div class="col-lg-10">
+                        <img id="image" style="height:80px" src="" alt="No image">
+                        <input class="form-control" required accept="image/*" type="file" name="image"
+                        onchange="readURL(this);" />
+                    </div>
+                </div>
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-10">
                             <button class="btn btn-success btn-sm waves-effect waves-light" type="submit">Update</button>

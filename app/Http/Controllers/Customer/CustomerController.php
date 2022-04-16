@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Employees;
+namespace App\Http\Controllers\Customer;
 
-use App\Http\Controllers\Controller;
-use App\Models\Employee;
+use App\Models\Customer;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class EmployeeController extends Controller
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,9 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $pageTitle= "All Employees";
-        $getData=Employee::orderBy('id','DESC')->get();
-        return view('partials.employee.index',compact('pageTitle','getData'));
+    {   $pageTitle="All Customers";
+        $getData = Customer::orderBy('id','DESC')->get();
+        return view('partials.customer.index',compact('pageTitle','getData'));
     }
 
     /**
@@ -38,14 +37,17 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|unique:employees',
             'phone' => 'required|numeric',
             'address' => 'required|string',
-            'experience' => 'required|string',
-            'salary' => 'required|numeric',
-            'vacation' => 'required|string',
+            'account_holder' => 'required|string',
+            'account_number' => 'required|numeric',
+            'bank_name' => 'required|string',
+            'bank_branch' => 'required|string',
+            'shop_name' => 'required|string',
             'city' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -53,18 +55,20 @@ class EmployeeController extends Controller
         if ($request->file('image')) {
             $file = $request->file('image');
             $filename = date('Ymdhms').'.'.$file->getClientOriginalExtension();
-            $file->move(public_path('backend/employee/images/'), $filename);
+            $file->move(public_path('backend/customer/images/'), $filename);
         }
 
-       $data= Employee::create([
+       $data= Customer::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
             'image' => $filename,
             'address' => $request->address,
-            'experience' => $request->experience,
-            'salary' => $request->salary,
-            'vacation' => $request->vacation,
+            'account_holder' => $request->account_holder,
+            'account_number' => $request->account_number,
+            'bank_branch' => $request->bank_branch,
+            'bank_name' => $request->bank_name,
+            'shop_name' => $request->shop_name,
             'city' => $request->city,
         ]);
         if($data){
@@ -83,7 +87,7 @@ class EmployeeController extends Controller
             );
             return back()->with($notification);
         }
-       
+      
     }
 
     /**
@@ -94,18 +98,7 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        // $getData= Employee::find($id);
-        // if($getData){
-        //     return view('partials.employee.allEmployees');
-        // }else{
-        //     $notification=array(
-        //         // 'T-messege' => 'welcome '.$request->name.'!',
-        //         'T-messege' => 'No data found ',
-        //         'alert-type'=>'error'
-        //     );
-        //     return back()->with($notification);
-        // }
-
+        //
     }
 
     /**
@@ -116,10 +109,11 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-         $getData= Employee::find($id);
+        //
+        $getData= Customer::find($id);
         //  dd($getData);
         if($getData){
-         return view('partials.employee.edit',compact('getData'));
+         return view('partials.customer.edit',compact('getData'));
         }else{
             $notification=array(
                 // 'T-messege' => 'welcome '.$request->name.'!',
@@ -139,20 +133,23 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //
         // dd('ok');
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|unique:employees',
             'phone' => 'required|numeric',
             'address' => 'required|string',
-            'experience' => 'required|string',
-            'salary' => 'required|numeric',
-            'vacation' => 'required|string',
+            'account_holder' => 'required|string',
+            'account_number' => 'required|numeric',
+            'bank_name' => 'required|string',
+            'bank_branch' => 'required|string',
+            'shop_name' => 'required|string',
             'city' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         
-        $getData=Employee::find($id);
+        $getData=Customer::find($id);
         // dd($getData);
         $filename=$getData->image; // find the image that will update
     
@@ -160,27 +157,29 @@ class EmployeeController extends Controller
         if ($request->file('image')) {
             $file = $request->file('image');
             $filename =date('Ymdhms').'.'.$file->getClientOriginalExtension();
-            $file->move(public_path('backend/employee/images/'), $filename);
-            @unlink(public_path('backend/employee/images/'. $getData->image ));
+            $file->move(public_path('backend/customer/images/'), $filename);
+            @unlink(public_path('backend/customer/images/'. $getData->image ));
         }
        $data= $getData->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'image' => $filename,
-            'address' => $request->address,
-            'experience' => $request->experience,
-            'salary' => $request->salary,
-            'vacation' => $request->vacation,
-            'city' => $request->city,
+        'name' => $request->name,
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'image' => $filename,
+        'address' => $request->address,
+        'account_holder' => $request->account_holder,
+        'account_number' => $request->account_number,
+        'bank_branch' => $request->bank_branch,
+        'bank_name' => $request->bank_name,
+        'shop_name' => $request->shop_name,
+        'city' => $request->city,
         ]);
         if($data){
             $notification=array(
                 // 'T-messege' => 'welcome '.$request->name.'!',
-                'T-messege' => 'Employee updated successfully ',
+                'T-messege' => 'Customer updated successfully ',
                 'alert-type'=>'success'
             );
-            return redirect()->route('employee.index')->with($notification);
+            return redirect()->route('customer.index')->with($notification);
         }
         else{
             $notification=array(
@@ -191,7 +190,6 @@ class EmployeeController extends Controller
             return back()->with($notification);
         }
 
-       
     }
 
     /**
@@ -202,11 +200,11 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        $getData =Employee::find($id);
+        $getData =Customer::find($id);
        
         if ($getData) {
             # code...
-            @unlink(public_path('backend/employee/images/'. $getData->image ));
+            @unlink(public_path('backend/customer/images/'. $getData->image ));
             $getData->delete();
             return back();
         }else{
