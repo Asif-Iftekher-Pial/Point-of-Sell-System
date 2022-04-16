@@ -117,6 +117,7 @@
                                         <th>Phone</th>
                                         <th>City</th>
                                         <th>Address</th>
+                                        <th>Shop Name</th>
                                         <th>Account Holder</th>
                                         <th>Account Number</th>
                                         <th>Bank Name</th>
@@ -157,6 +158,12 @@
                                             <td>{{ $item->phone }}</td>
                                             <td>{{ $item->city }}</td>
                                             <td>{{ $item->address }}</td>
+                                            @if ($item->shop_name == NULL)
+                                            <td>No Name Found</td>
+                                            @else
+                                            <td>{{ $item->shop_name }}</td>
+                                            @endif
+                                            
                                             <td>{{ $item->account_holder }}</td>
                                             <td>{{ $item->account_number }}</td>
                                             <td>{{ $item->bank_name }}</td>
