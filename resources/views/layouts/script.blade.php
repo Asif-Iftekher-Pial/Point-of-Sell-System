@@ -5,7 +5,7 @@
 
 <!-- jQuery  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+<script src="{{ asset('backend/js/jquery.min.js') }}"></script>
 <script src="{{ asset('backend/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('backend/js/waves.js') }}"></script>
 <script src="{{ asset('backend/js/wow.min.js') }}"></script>
@@ -18,7 +18,7 @@
 <script src="{{ asset('backend/assets/jquery-slimscroll/jquery.slimscroll.js') }}"></script>
 <script src="{{ asset('backend/assets/jquery-blockui/jquery.blockUI.js') }}"></script>
 
- 
+
 <!-- flot Chart -->
 <script src="{{ asset('backend/assets/flot-chart/jquery.flot.js') }}"></script>
 <script src="{{ asset('backend/assets/flot-chart/jquery.flot.time.js') }}"></script>
@@ -45,21 +45,19 @@
 <!-- Todo -->
 <script src="{{ asset('backend/js/jquery.todo.js') }}"></script>
 
-{{-- sweet alert  --}}
+{{-- sweet alert --}}
 <script src="{{ asset('backend/assets/sweet-alert/sweetalert.min.js') }}"></script>
 
 {{-- dataTable cdn --}}
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.jqueryui.min.js"></script>
 <script>
-    $(document).ready( function () {
-    $('#myTable').DataTable();
-} );
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
 </script>
 {{-- toastr --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
-integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
-crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 {{-- toastr notification --}}
 <script>
     @if (Session::has('T-messege'))
@@ -81,7 +79,36 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         }
     @endif
 </script>
-{{-- END dataTable cdn --}}
+
+{{-- Sweet alert notification --}}
+<script>
+    @if (Session::has('T-messege'))
+        var type="{{ Session::get('alert-type', 'info') }}"
+        switch(type){
+            case 'info' :
+            toastr.info("{{ Session::get('T-messege') }}");
+            break;
+            case 'success' :
+            toastr.success("{{ Session::get('T-messege') }}");
+            // swal("{{ Session::get('T-messege') }}");
+            swal("Good job!", "{{ Session::get('T-messege') }}", "success");
+            break;
+            case 'warning' :
+            toastr.warning("{{ Session::get('T-messege') }}");
+            break;
+            case 'error' :
+            toastr.error("{{ Session::get('T-messege') }}");
+            swal({
+            title: "Caution",
+            text: "{{ Session::get('T-messege') }}",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            break;
+        }
+    @endif
+</script>
 {{-- number count --}}
 <script type="text/javascript">
     jQuery(document).ready(function($) {
@@ -93,15 +120,15 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </script>
 {{-- image Upload thumbanile --}}
 <script>
-    function readURL(input){
+    function readURL(input) {
         // console.log('ok');
-        if(input.files && input.files[0]){
+        if (input.files && input.files[0]) {
             var reader = new FileReader();
-            reader.onload = function(e){
+            reader.onload = function(e) {
                 $('#image')
-                .attr('src' , e.target.result)
-                .width(80)
-                .height(90);
+                    .attr('src', e.target.result)
+                    .width(80)
+                    .height(90);
             };
             reader.readAsDataURL(input.files[0]);
         }
@@ -109,15 +136,15 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </script>
 {{-- image Update thumbanile --}}
 <script>
-    function readURLupdate(input){
+    function readURLupdate(input) {
         // console.log('ok');
-        if(input.files && input.files[0]){
+        if (input.files && input.files[0]) {
             var reader = new FileReader();
-            reader.onload = function(e){
+            reader.onload = function(e) {
                 $('#Updateimage')
-                .attr('src' , e.target.result)
-                .width(80)
-                .height(90);
+                    .attr('src', e.target.result)
+                    .width(80)
+                    .height(90);
             };
             reader.readAsDataURL(input.files[0]);
         }

@@ -16,9 +16,8 @@ class EmployeeController extends Controller
     public function index()
     {
         $pageTitle= "All Employees";
-
-        $getData=Employee::all();
-        return view('partials.employee.allEmployees',compact('pageTitle','getData'));
+        $getData=Employee::orderBy('id','DESC')->get();
+        return view('partials.employee.index',compact('pageTitle','getData'));
     }
 
     /**
@@ -39,6 +38,17 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|unique:employees',
+            'phone' => 'required|numeric',
+            'address' => 'required|string',
+            'experience' => 'required|string',
+            'salary' => 'required|numeric',
+            'vacation' => 'required|string',
+            'city' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
         
         if ($request->file('image')) {
             $file = $request->file('image');
@@ -53,7 +63,6 @@ class EmployeeController extends Controller
             'image' => $filename,
             'address' => $request->address,
             'experience' => $request->experience,
-            'address' => $request->address,
             'salary' => $request->salary,
             'vacation' => $request->vacation,
             'city' => $request->city,
@@ -110,10 +119,7 @@ class EmployeeController extends Controller
          $getData= Employee::find($id);
         //  dd($getData);
         if($getData){
-           return response()->json([
-            'status' => 200,
-            'retrivedData' =>$getData
-           ]);
+         return view('partials.employee.edit',compact('getData'));
         }else{
             $notification=array(
                 // 'T-messege' => 'welcome '.$request->name.'!',
@@ -133,7 +139,59 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd('ok');
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|unique:employees',
+            'phone' => 'required|numeric',
+            'address' => 'required|string',
+            'experience' => 'required|string',
+            'salary' => 'required|numeric',
+            'vacation' => 'required|string',
+            'city' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        
+        $getData=Employee::find($id);
+        // dd($getData);
+        $filename=$getData->image; // find the image that will update
+    
+
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $filename =date('Ymdhms').'.'.$file->getClientOriginalExtension();
+            $file->move(public_path('backend/employee/images/'), $filename);
+            @unlink(public_path('backend/employee/images/'. $getData->image ));
+        }
+       $data= $getData->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'image' => $filename,
+            'address' => $request->address,
+            'experience' => $request->experience,
+            'salary' => $request->salary,
+            'vacation' => $request->vacation,
+            'city' => $request->city,
+        ]);
+        if($data){
+            $notification=array(
+                // 'T-messege' => 'welcome '.$request->name.'!',
+                'T-messege' => 'Employee updated successfully ',
+                'alert-type'=>'success'
+            );
+            return redirect()->route('employee.index')->with($notification);
+        }
+        else{
+            $notification=array(
+                // 'T-messege' => 'welcome '.$request->name.'!',
+                'T-messege' => 'Something went wrong ',
+                'alert-type'=>'error'
+            );
+            return back()->with($notification);
+        }
+
+       
     }
 
     /**
@@ -144,6 +202,19 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $getData =Employee::find($id);
+        if ($getData) {
+            # code...
+            @unlink(public_path('backend/employee/images/'. $getData->image ));
+            $getData->delete();
+            return back();
+        }else{
+            $notification=array(
+                // 'T-messege' => 'welcome '.$request->name.'!',
+                'T-messege' => 'Data not found ',
+                'alert-type'=>'error'
+            );
+            return back()->with($notification);
+        }
     }
 }
