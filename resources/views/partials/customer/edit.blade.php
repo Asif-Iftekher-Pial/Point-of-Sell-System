@@ -110,7 +110,6 @@
                             <div class="col-lg-10">
                                 <img style="height:80px" src="{{ asset('backend/customer/images/' . $getData->image) }}"
                                     alt="No image">
-
                             </div>
                         </div>
                         <label class="control-label col-lg-2">Photo</label>

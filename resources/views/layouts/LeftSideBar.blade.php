@@ -39,15 +39,9 @@
                 </li>
 
                 <li class="has_sub">
-                    <a href="#" class="waves-effect"><i class="md md-invert-colors-on"></i><span> Components </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                    <a href="#" class="waves-effect"><i class="ion-person-stalker"></i><span>Suppliers Section </span><span class="pull-right"><i class="md md-add"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="grid.html">Grid</a></li>
-                        <li><a href="portlets.html">Portlets</a></li>
-                        <li><a href="widgets.html">Widgets</a></li>
-                        <li><a href="nestable-list.html">Nesteble</a></li>
-                        <li><a href="ui-sliders.html">Sliders </a></li>
-                        <li><a href="gallery.html">Gallery </a></li>
-                        <li><a href="pricing.html">Pricing Table </a></li>
+                        <li><a href="{{ route('supplier.index') }}">All Suppliers</a></li>
                     </ul>
                 </li>
 

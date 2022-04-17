@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->integer('phone');
             $table->longText('address');
-            $table->enum('type',['wholeSale','retailer'])->default('retailer');
+            $table->string('type');
             $table->string('image');
             $table->string('shop');
             $table->string('accountHolder')->nullable();

@@ -53,10 +53,10 @@
                                     name="city" />
                                 <label class="control-label">Branch Name</label>
                                 <input class="form-control form-white" required placeholder="Enter name" type="text"
-                                name="bank_branch" />
+                                    name="bank_branch" />
                                 <label class="control-label">Shop Name</label>
                                 <input class="form-control form-white" required placeholder="Enter name" type="text"
-                                name="shop_name" />
+                                    name="shop_name" />
                                 <label class="control-label">Photo</label>
                                 <br>
                                 <img id="image" src="#" alt="No image">
@@ -66,7 +66,8 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-sm btn-default waves-effect" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-sm btn-default waves-effect"
+                                data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-sm btn-success waves-effect waves-light">Save</button>
                         </div>
                     </form>
@@ -85,10 +86,13 @@
                 <h3 class="panel-title">Customer Information</h3>
             </div>
             @if ($errors->any())
-                <div class="alert alert-danger">
+                <div class="alert alert-danger alert-dismissible" id="alert" role="alert">
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         @endforeach
                     </ul>
                 </div>
@@ -122,7 +126,7 @@
                                         <th>Account Number</th>
                                         <th>Bank Name</th>
                                         <th>Bank Branch</th>
-                                       
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -130,23 +134,27 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
-                                                <a href="{{ route('customer.edit', $item->id) }}"
-                                                    class="btn btn-sm btn-warning">Edit</a>
+                                                <div style="display:flex">
+                                                    <a href="{{ route('customer.edit', $item->id) }}"
+                                                        class="btn btn-sm btn-warning">Edit</a>
 
-                                                <form action="{{ route('customer.destroy', $item->id) }}" method="post">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button class="btn delete btn-sm btn-danger"data-id="{{ $item->id }}"><i
-                                                            class="fa fa-trash"></i>Delete</button>
-                                                </form>
-                                                {{-- <button value="{{ $item->id }}"class="btn delete btn-sm btn-danger">delete</button> --}}
+                                                    <form action="{{ route('customer.destroy', $item->id) }}"
+                                                        method="post">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <button class="btn delete btn-sm btn-danger"
+                                                            data-id="{{ $item->id }}"><i
+                                                                class="fa fa-trash"></i>Delete</button>
+                                                    </form>
+                                                    {{-- <button value="{{ $item->id }}"class="btn delete btn-sm btn-danger">delete</button> --}}
+
+                                                </div>
                                             </td>
-                                            <td> <span class="badge 
-                                                @if ( $item->status =='inactive' )
-                                                badge-danger
+                                            <td> <span
+                                                    class="badge 
+                                                @if ($item->status == 'inactive') badge-danger
                                                 @else
-                                                badge-success
-                                                @endif ">{{ $item->status }}</span>
+                                                badge-success @endif ">{{ $item->status }}</span>
                                             </td>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->email }}</td>
@@ -158,12 +166,12 @@
                                             <td>{{ $item->phone }}</td>
                                             <td>{{ $item->city }}</td>
                                             <td>{{ $item->address }}</td>
-                                            @if ($item->shop_name == NULL)
-                                            <td>No Name Found</td>
+                                            @if ($item->shop_name == null)
+                                                <td>No Name Found</td>
                                             @else
-                                            <td>{{ $item->shop_name }}</td>
+                                                <td>{{ $item->shop_name }}</td>
                                             @endif
-                                            
+
                                             <td>{{ $item->account_holder }}</td>
                                             <td>{{ $item->account_number }}</td>
                                             <td>{{ $item->bank_name }}</td>
@@ -191,7 +199,7 @@
                 e.preventDefault();
                 $('.delete').text('Deleting...');
                 $('.delete').html('<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>')
-            
+
                 var form = $(this).closest('form'); //sellecting form
                 var dataID = $(this).data('id'); // getting id 
                 // console.log(form);
@@ -202,23 +210,23 @@
                         icon: "warning",
                         buttons: true,
                         dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        
-                        form.submit();
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
 
-                        swal("Your file has been deleted!", {
-                            icon: "success",
-                        });
-                        $('.delete').text('Delete');
-                    } else {
-                        swal("Your file is safe!", {
-                            icon: "success",
-                        });
-                        $('.delete').text('Delete');
-                    }
-                });
+                            form.submit();
+
+                            swal("Your file has been deleted!", {
+                                icon: "success",
+                            });
+                            $('.delete').text('Delete');
+                        } else {
+                            swal("Your file is safe!", {
+                                icon: "success",
+                            });
+                            $('.delete').text('Delete');
+                        }
+                    });
             });
         });
     </script>

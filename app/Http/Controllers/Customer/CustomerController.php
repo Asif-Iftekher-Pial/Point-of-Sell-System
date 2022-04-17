@@ -14,9 +14,10 @@ class CustomerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   $pageTitle="All Customers";
-        $getData = Customer::orderBy('id','DESC')->get();
-        return view('partials.customer.index',compact('pageTitle','getData'));
+    {
+        $pageTitle = "All Customers";
+        $getData = Customer::orderBy('id', 'DESC')->get();
+        return view('partials.customer.index', compact('pageTitle', 'getData'));
     }
 
     /**
@@ -37,10 +38,10 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|unique:employees',
+            'email' => 'required|unique:customers',
             'phone' => 'required|numeric',
             'address' => 'required|string',
             'account_holder' => 'required|string',
@@ -51,14 +52,14 @@ class CustomerController extends Controller
             'city' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        
+
         if ($request->file('image')) {
             $file = $request->file('image');
-            $filename = date('Ymdhms').'.'.$file->getClientOriginalExtension();
+            $filename = date('Ymdhms') . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('backend/customer/images/'), $filename);
         }
 
-       $data= Customer::create([
+        $data = Customer::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -71,23 +72,21 @@ class CustomerController extends Controller
             'shop_name' => $request->shop_name,
             'city' => $request->city,
         ]);
-        if($data){
-            $notification=array(
+        if ($data) {
+            $notification = array(
                 // 'T-messege' => 'welcome '.$request->name.'!',
                 'T-messege' => 'Employee added successfully ',
-                'alert-type'=>'success'
+                'alert-type' => 'success'
             );
             return back()->with($notification);
-        }
-        else{
-            $notification=array(
+        } else {
+            $notification = array(
                 // 'T-messege' => 'welcome '.$request->name.'!',
                 'T-messege' => 'Something went wrong ',
-                'alert-type'=>'error'
+                'alert-type' => 'error'
             );
             return back()->with($notification);
         }
-      
     }
 
     /**
@@ -110,15 +109,15 @@ class CustomerController extends Controller
     public function edit($id)
     {
         //
-        $getData= Customer::find($id);
+        $getData = Customer::find($id);
         //  dd($getData);
-        if($getData){
-         return view('partials.customer.edit',compact('getData'));
-        }else{
-            $notification=array(
+        if ($getData) {
+            return view('partials.customer.edit', compact('getData'));
+        } else {
+            $notification = array(
                 // 'T-messege' => 'welcome '.$request->name.'!',
                 'T-messege' => 'No data found ',
-                'alert-type'=>'error'
+                'alert-type' => 'error'
             );
             return back()->with($notification);
         }
@@ -137,7 +136,7 @@ class CustomerController extends Controller
         // dd('ok');
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|unique:employees',
+            'email' => 'required|unique:customers',
             'phone' => 'required|numeric',
             'address' => 'required|string',
             'account_holder' => 'required|string',
@@ -146,50 +145,48 @@ class CustomerController extends Controller
             'bank_branch' => 'required|string',
             'shop_name' => 'required|string',
             'city' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        
-        $getData=Customer::find($id);
+
+        $getData = Customer::find($id);
         // dd($getData);
-        $filename=$getData->image; // find the image that will update
-    
+        $filename = $getData->image; // find the image that will update
+
 
         if ($request->file('image')) {
             $file = $request->file('image');
-            $filename =date('Ymdhms').'.'.$file->getClientOriginalExtension();
+            $filename = date('Ymdhms') . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('backend/customer/images/'), $filename);
-            @unlink(public_path('backend/customer/images/'. $getData->image ));
+            @unlink(public_path('backend/customer/images/' . $getData->image));
         }
-       $data= $getData->update([
-        'name' => $request->name,
-        'email' => $request->email,
-        'phone' => $request->phone,
-        'image' => $filename,
-        'address' => $request->address,
-        'account_holder' => $request->account_holder,
-        'account_number' => $request->account_number,
-        'bank_branch' => $request->bank_branch,
-        'bank_name' => $request->bank_name,
-        'shop_name' => $request->shop_name,
-        'city' => $request->city,
+        $data = $getData->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'image' => $filename,
+            'address' => $request->address,
+            'account_holder' => $request->account_holder,
+            'account_number' => $request->account_number,
+            'bank_branch' => $request->bank_branch,
+            'bank_name' => $request->bank_name,
+            'shop_name' => $request->shop_name,
+            'city' => $request->city,
         ]);
-        if($data){
-            $notification=array(
+        if ($data) {
+            $notification = array(
                 // 'T-messege' => 'welcome '.$request->name.'!',
                 'T-messege' => 'Customer updated successfully ',
-                'alert-type'=>'success'
+                'alert-type' => 'success'
             );
             return redirect()->route('customer.index')->with($notification);
-        }
-        else{
-            $notification=array(
+        } else {
+            $notification = array(
                 // 'T-messege' => 'welcome '.$request->name.'!',
                 'T-messege' => 'Something went wrong ',
-                'alert-type'=>'error'
+                'alert-type' => 'error'
             );
             return back()->with($notification);
         }
-
     }
 
     /**
@@ -200,18 +197,18 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        $getData =Customer::find($id);
-       
+        $getData = Customer::find($id);
+
         if ($getData) {
             # code...
-            @unlink(public_path('backend/customer/images/'. $getData->image ));
+            @unlink(public_path('backend/customer/images/' . $getData->image));
             $getData->delete();
             return back();
-        }else{
-            $notification=array(
+        } else {
+            $notification = array(
                 // 'T-messege' => 'welcome '.$request->name.'!',
                 'T-messege' => 'Data not found ',
-                'alert-type'=>'error'
+                'alert-type' => 'error'
             );
             return back()->with($notification);
         }

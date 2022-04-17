@@ -5,6 +5,7 @@ use App\Http\Controllers\home\HomeController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Employees\EmployeeController;
 use App\Http\Controllers\auth\AuthenticationController;
+use App\Http\Controllers\Supplier\SupplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,4 +39,7 @@ route::resource('/employee',EmployeeController::class);
 
 // Customers  
 route::resource('/customer',CustomerController::class);
+
+// Customers  
+route::resource('/supplier',SupplierController::class);
 

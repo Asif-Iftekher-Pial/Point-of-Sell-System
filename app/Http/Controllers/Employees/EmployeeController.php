@@ -149,7 +149,7 @@ class EmployeeController extends Controller
             'salary' => 'required|numeric',
             'vacation' => 'required|string',
             'city' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         
         $getData=Employee::find($id);

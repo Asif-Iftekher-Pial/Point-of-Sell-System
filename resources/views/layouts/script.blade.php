@@ -89,7 +89,7 @@
             toastr.info("{{ Session::get('T-messege') }}");
             break;
             case 'success' :
-            toastr.success("{{ Session::get('T-messege') }}");
+            // toastr.success("{{ Session::get('T-messege') }}");
             // swal("{{ Session::get('T-messege') }}");
             swal("Good job!", "{{ Session::get('T-messege') }}", "success");
             break;
@@ -97,7 +97,7 @@
             toastr.warning("{{ Session::get('T-messege') }}");
             break;
             case 'error' :
-            toastr.error("{{ Session::get('T-messege') }}");
+            // toastr.error("{{ Session::get('T-messege') }}");
             swal({
             title: "Caution",
             text: "{{ Session::get('T-messege') }}",
@@ -117,6 +117,12 @@
             time: 1200
         });
     });
+</script>
+{{-- Validation error notification --}}
+<script>
+    setTimeout(function() {
+        $('#alert').slideUp();
+    }, 4000);
 </script>
 {{-- image Upload thumbanile --}}
 <script>

@@ -20,10 +20,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><strong>Add</strong> new employee</h4>
+                    <h4 class="modal-title"><strong>Add</strong> new supplier</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('employee.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('supplier.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
@@ -39,15 +39,28 @@
                                 <label class="control-label">Address</label>
                                 <input class="form-control form-white" required placeholder="Enter name" type="text"
                                     name="address" />
-                                <label class="control-label">Experience</label>
+                                <label class="control-label">Supplier Type</label>
+                                <select class="form-control form-white" name="type" aria-label="Default select example">
+                                    <option value="">-- select type --</option>
+                                    <option value="wholesaller">Wholesaller</option>
+                                    <option value="broker">Broker</option>
+                                    <option value="distributor">Distributor</option>
+                                </select>
+                                <label class="control-label">Shop</label>
+                                <input class="form-control form-white" min="1" required placeholder="Enter name" type="text"
+                                    name="shop" />
+                                <label class="control-label">Account Holder</label>
                                 <input class="form-control form-white" required placeholder="Enter name" type="text"
-                                    name="experience" />
-                                <label class="control-label">Salary</label>
+                                    name="accountHolder" />
+                                <label class="control-label">Account Number</label>
                                 <input class="form-control form-white" required placeholder="Enter name" type="number"
-                                    name="salary" />
-                                <label class="control-label">Vacation</label>
+                                    name="accountNumber" />
+                                <label class="control-label">Bank Name</label>
                                 <input class="form-control form-white" required placeholder="Enter name" type="text"
-                                    name="vacation" />
+                                    name="bankName" />
+                                <label class="control-label">Branch Name</label>
+                                <input class="form-control form-white" required placeholder="Enter name" type="text"
+                                    name="branchName" />
                                 <label class="control-label">City</label>
                                 <input class="form-control form-white" required placeholder="Enter name" type="text"
                                     name="city" />
@@ -76,7 +89,7 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Employee Information</h3>
+                <h3 class="panel-title">Supplier Information</h3>
             </div>
 
             @if ($errors->any())
@@ -91,6 +104,7 @@
                     </ul>
                 </div>
             @endif
+
             <br>
             <div class="panel-body">
                 <div class="row">
@@ -109,14 +123,18 @@
                                         <th>#</th>
                                         <th>Action</th>
                                         <th>Status</th>
+                                        <th>Type</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Photo</th>
                                         <th>Phone</th>
                                         <th>Address</th>
-                                        <th>Experience</th>
-                                        <th>Salary</th>
-                                        <th>Vacation</th>
+
+                                        <th>Shop</th>
+                                        <th>Account Holder</th>
+                                        <th>Account Number</th>
+                                        <th>Bank Name</th>
+                                        <th>Branch Name</th>
                                         <th>City</th>
                                     </tr>
                                 </thead>
@@ -126,10 +144,10 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
                                                 <div style="display:flex">
-                                                    <a href="{{ route('employee.edit', $item->id) }}"
+                                                    <a href="{{ route('supplier.edit', $item->id) }}"
                                                         class="btn btn-sm btn-warning">Edit</a>
 
-                                                    <form action="{{ route('employee.destroy', $item->id) }}"
+                                                    <form action="{{ route('supplier.destroy', $item->id) }}"
                                                         method="post">
                                                         @method('delete')
                                                         @csrf
@@ -137,28 +155,44 @@
                                                             data-id="{{ $item->id }}"><i
                                                                 class="fa fa-trash"></i>Delete</button>
                                                     </form>
-                                                    {{-- <button value="{{ $item->id }}"class="btn delete btn-sm btn-danger">delete</button> --}}
-
                                                 </div>
+
+                                                {{-- <button value="{{ $item->id }}"class="btn delete btn-sm btn-danger">delete</button> --}}
                                             </td>
-                                            <td> <span
+                                            <td><span
                                                     class="badge 
                                                 @if ($item->status == 'inactive') badge-danger
                                                 @else
-                                                badge-success @endif ">{{ $item->status }}</span>
+                                                badge-success @endif ">
+                                                    {{ $item->status }}
+                                                </span>
+                                            </td>
+                                            <td><span
+                                                    class="badge
+                                                @if ($item->type == 'wholesaller') badge-success
+                                                @elseif($item->type == 'distributor')
+                                                badge-primary
+                                                @else
+                                                badge-info @endif
+                                                ">{{ $item->type }}
+                                                </span>
+
                                             </td>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->email }}</td>
                                             <td>
                                                 <img style="height:80px"
-                                                    src="{{ asset('backend/employee/images/' . $item->image) }}"
+                                                    src="{{ asset('backend/supplier/images/' . $item->image) }}"
                                                     alt="No photo" srcset="">
                                             </td>
                                             <td>{{ $item->phone }}</td>
                                             <td>{{ $item->address }}</td>
-                                            <td>{{ $item->experience }}</td>
-                                            <td>BDT-{{ $item->salary }}</td>
-                                            <td>{{ $item->vacation }}</td>
+
+                                            <td>{{ $item->shop }}</td>
+                                            <td>{{ $item->accountHolder }}</td>
+                                            <td>{{ $item->accountNumber }}</td>
+                                            <td>{{ $item->bankName }}</td>
+                                            <td>{{ $item->branchName }}</td>
                                             <td>{{ $item->city }}</td>
                                         </tr>
                                     @endforeach
@@ -167,7 +201,6 @@
                             </table>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
