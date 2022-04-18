@@ -37,6 +37,11 @@ route::get('/logout',[AuthenticationController::class,'logout'])->name('logout')
 // Employee
 route::resource('/employee',EmployeeController::class);
 
+// salary 
+route::get('/salary',[EmployeeController::class,'salarypayment'])->name('salaryManage');
+route::get('/salary/{id}',[EmployeeController::class,'editSalary'])->name('editSalary');
+route::put('/salary-update/{id}',[EmployeeController::class,'salarypaymentUpdate'])->name('salaryUpdate');
+
 // Customers  
 route::resource('/customer',CustomerController::class);
 

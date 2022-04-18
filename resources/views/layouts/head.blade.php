@@ -43,5 +43,5 @@
 
     <script src="{{ asset('backend/js/modernizr.min.js') }}"></script>
 
-    
+    @yield('css')
 </head>

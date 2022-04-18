@@ -29,6 +29,7 @@
                     <a href="#" class="waves-effect"><i class="ion-person"></i><span> Employee Section </span><span class="pull-right"><i class="md md-add"></i></span></a>
                     <ul class="list-unstyled">
                         <li><a href="{{ route('employee.index') }}">All Employees</a></li>
+                        <li><a href="{{ route('salaryManage') }}">Salary Management</a></li>
                     </ul>
                 </li>
                 <li class="has_sub">
