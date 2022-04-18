@@ -259,16 +259,24 @@ class EmployeeController extends Controller
     }
 
     public function salarypaymentUpdate(Request $request,$id){
-    //    return $request->all();
-        $getData=Salary::find($id);
 
-        $data=  $getData->update([
-            'paymentStatus' =>$request->paymentStatus,
-            'bonus' => $request->bonus,
-            'date'=> $request->date,
-            'month'=> $request->month,
-            'year'=> $request->year
+        $ok= $request->all();
+        $request->validate([
+            'paymentStatus' =>'required',
+            'bonus' => 'required|numeric',
+            'date' =>'required|numeric|min:1|max:31',
+            'month' =>'required|numeric|min:1|max:12',
+            'year' =>'required|numeric|min:2022',
         ]);
+        $getData=Salary::find($id);
+         $data=  $getData->fill($ok)->save();
+        // $data=  $getData->update([
+        //     'paymentStatus' =>$request->paymentStatus,
+        //     'bonus' => $request->bonus,
+        //     'date'=> $request->date,
+        //     'month'=> $request->month,
+        //     'year'=> $request->year
+        // ]);
         if($data){
             $notification = array(
                 // 'T-messege' => 'welcome '.$request->name.'!',
