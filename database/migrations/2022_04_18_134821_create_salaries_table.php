@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('employee_name');
             $table->string('salaryAmount');
             $table->enum('paymentStatus',['paid','due'])->default('due');
-            $table->string('bonus')->nullable();
-            $table->string('date')->nullable();
-            $table->string('month')->nullable();
-            $table->string('year')->nullable();
+            $table->string('bonus')->default('not paid')->nullable();
+            $table->string('date')->default('not paid')->nullable();
+            $table->string('month')->default('not paid')->nullable();
+            $table->string('year')->default('not paid')->nullable();
             $table->timestamps();
         });
     }

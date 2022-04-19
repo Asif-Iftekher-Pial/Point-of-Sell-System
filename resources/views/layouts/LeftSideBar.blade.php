@@ -47,11 +47,9 @@
                 </li>
 
                 <li class="has_sub">
-                    <a href="#" class="waves-effect"><i class="md md-redeem"></i> <span> Icons </span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                    <a href="#" class="waves-effect"><i class="md md-now-widgets"></i> <span> Category Section </span> <span class="pull-right"><i class="md md-add"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="material-icon.html">Material Design</a></li>
-                        <li><a href="ion-icons.html">Ion Icons</a></li>
-                        <li><a href="font-awesome.html">Font awesome</a></li>
+                        <li><a href="{{ route('category.index') }}">All Categories</a></li>
                     </ul>
                 </li>
                 

@@ -244,11 +244,12 @@ class EmployeeController extends Controller
         return view('partials.salary.index', compact('pageTitle', 'getData'));
     }
 
-    public function editSalary($id){
+    public function editSalary($id)
+    {
         $getData = Salary::find($id);
-        if($getData){
+        if ($getData) {
             return view('partials.salary.edit', compact('getData'));
-        }else{
+        } else {
             $notification = array(
                 // 'T-messege' => 'welcome '.$request->name.'!',
                 'T-messege' => 'data not found ',
@@ -258,18 +259,44 @@ class EmployeeController extends Controller
         }
     }
 
-    public function salarypaymentUpdate(Request $request,$id){
-
-        $ok= $request->all();
+    public function salarypaymentUpdate(Request $request, $id)
+    {
+        $data = $request->all();
         $request->validate([
-            'paymentStatus' =>'required',
+            'paymentStatus' => 'required',
             'bonus' => 'required|numeric',
-            'date' =>'required|numeric|min:1|max:31',
-            'month' =>'required|numeric|min:1|max:12',
-            'year' =>'required|numeric|min:2022',
+            'date' => 'required|numeric|min:1|max:31',
+            'month' => 'required|numeric|min:1|max:12',
+            'year' => 'required|numeric|min:2022',
         ]);
-        $getData=Salary::find($id);
-         $data=  $getData->fill($ok)->save();
+        $Employeeid = $request->id;
+        $paidMonth = $request->month;
+        $existMonth = Salary::where('id', $Employeeid)
+            ->where('month', $paidMonth)
+            ->where('paymentStatus', 'paid')->first();
+        // if $existMonth return null that means this months can insert data
+        if ($existMonth === NULL) {
+            // update data
+            $save =  Salary::find($id);
+            $status =  $save->fill($data)->save();
+            if ($status) {
+                $notification = array(
+                    // 'T-messege' => 'welcome '.$request->name.'!',
+                    'T-messege' => 'Salary Information Updated',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('salaryManage')->with($notification);
+            }
+        } else {
+            $notification = array(
+                // 'T-messege' => 'welcome '.$request->name.'!',
+                'T-messege' => 'Salary already paid in this month',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('salaryManage')->with($notification);
+        }
+        //dd($existMonth);
+
         // $data=  $getData->update([
         //     'paymentStatus' =>$request->paymentStatus,
         //     'bonus' => $request->bonus,
@@ -277,13 +304,13 @@ class EmployeeController extends Controller
         //     'month'=> $request->month,
         //     'year'=> $request->year
         // ]);
-        if($data){
-            $notification = array(
-                // 'T-messege' => 'welcome '.$request->name.'!',
-                'T-messege' => 'Salary Information Updated',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('salaryManage')->with($notification);
-        }
+        // if($data){
+        //     $notification = array(
+        //         // 'T-messege' => 'welcome '.$request->name.'!',
+        //         'T-messege' => 'Salary Information Updated',
+        //         'alert-type' => 'success'
+        //     );
+        //     return redirect()->route('salaryManage')->with($notification);
+        // }
     }
 }

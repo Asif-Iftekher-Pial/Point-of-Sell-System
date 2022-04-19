@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\home\HomeController;
+use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\Employees\EmployeeController;
 use App\Http\Controllers\auth\AuthenticationController;
-use App\Http\Controllers\Supplier\SupplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,9 @@ route::resource('/employee',EmployeeController::class);
 route::get('/salary',[EmployeeController::class,'salarypayment'])->name('salaryManage');
 route::get('/salary/{id}',[EmployeeController::class,'editSalary'])->name('editSalary');
 route::put('/salary-update/{id}',[EmployeeController::class,'salarypaymentUpdate'])->name('salaryUpdate');
+
+// Category
+route::resource('/category',CategoryController::class);
 
 // Customers  
 route::resource('/customer',CustomerController::class);
