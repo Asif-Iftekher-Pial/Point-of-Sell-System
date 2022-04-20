@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\home\HomeController;
+use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Supplier\SupplierController;
@@ -45,10 +46,17 @@ route::put('/salary-update/{id}',[EmployeeController::class,'salarypaymentUpdate
 
 // Category
 route::resource('/category',CategoryController::class);
+route::post('/create-child',[CategoryController::class,'createChild'])->name('createChild');
+route::post('/delete-child/{id}',[CategoryController::class,'deleteChild'])->name('deleteChild');
+route::get('/edit-child/{id}',[CategoryController::class,'editChild'])->name('editChild');
+route::put('/update-child/{id}',[CategoryController::class,'updateChild'])->name('updateChild');
 
 // Customers  
 route::resource('/customer',CustomerController::class);
 
 // Customers  
 route::resource('/supplier',SupplierController::class);
+
+// Product
+route::resource('/product',ProductController::class);
 

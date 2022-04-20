@@ -17,8 +17,11 @@ class CategoryController extends Controller
     public function index()
     {
         $pageTitle = "All Categories";
-        $getData = Category::all();
-        return view('partials.category.index', compact('pageTitle', 'getData'));
+        $getData = Category::orderBy('id', 'DESC')->get();
+        $getChild = ChildCategory::orderBy('id', 'DESC')->with('category')->get();
+
+
+        return view('partials.category.index', compact('pageTitle', 'getData', 'getChild'));
     }
 
     /**
@@ -142,14 +145,9 @@ class CategoryController extends Controller
         //
         $getData = Category::find($id);
         if ($getData) {
-            $deleted =  $getData->delete();
-            if ($deleted) {
-                $notification = array(
-                    // 'T-messege' => 'welcome '.$request->name.'!',
-                    'T-messege' => 'Category Deleted ',
-                    'alert-type' => 'success'
-                );
-                return back()->with($notification);
+            $status =  $getData->delete();
+            if ($status) {
+                return back();
             }
         } else {
             $notification = array(
@@ -158,6 +156,110 @@ class CategoryController extends Controller
                 'alert-type' => 'error'
             );
             return back()->with($notification);
+        }
+    }
+
+
+    // child category section
+    public function createChild(Request $request)
+    {
+        $data = $request->all();
+        $request->validate([
+            'child_CatName' => 'required|string',
+        ]);
+
+        $status = ChildCategory::create($data);
+        if ($status) {
+            $notification = array(
+                // 'T-messege' => 'welcome '.$request->name.'!',
+                'T-messege' => 'Child category created successfully ',
+                'alert-type' => 'success'
+            );
+            return back()->with($notification);
+        } else {
+            $notification = array(
+                // 'T-messege' => 'welcome '.$request->name.'!',
+                'T-messege' => 'Something went wrong ',
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
+    }
+
+    public function deleteChild($id)
+    {
+        //
+        $getData = ChildCategory::find($id);
+        if ($getData) {
+            $status =  $getData->delete();
+            if ($status) {
+                return back();
+            }
+        } else {
+            $notification = array(
+                // 'T-messege' => 'welcome '.$request->name.'!',
+                'T-messege' => 'Data not found ',
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
+    }
+    // public function deleteChild($id){
+    //     $data=ChildCategory::find($id);
+    //     if($data){
+    //        $status= $data->delete();
+    //        if($status){
+    //         $notification = array(
+    //             // 'T-messege' => 'welcome '.$request->name.'!',
+    //             'T-messege' => 'Child Category deleted',
+    //             'alert-type' => 'error'
+    //         );
+    //         return back()->with($notification);
+    //        }
+    //     }else {
+    //         $notification = array(
+    //             // 'T-messege' => 'welcome '.$request->name.'!',
+    //             'T-messege' => 'Data not found',
+    //             'alert-type' => 'error'
+    //         );
+    //         return back()->with($notification);
+    //     }
+    // }
+
+
+    public function editChild($id)
+    {
+        $getData = ChildCategory::find($id);
+        if ($getData) {
+            return view('partials.category.editChild', compact('getData'));
+        } else {
+            return "No data found";
+        }
+    }
+
+    public function updateChild(Request $request, $id)
+    {
+        $data = $request->all();
+        $request->validate([
+            'child_CatName' => 'required|string'
+        ]);
+
+        $update = ChildCategory::find($id);
+        $status =  $update->fill($data)->save();
+        if ($status) {
+            $notification = array(
+                // 'T-messege' => 'welcome '.$request->name.'!',
+                'T-messege' => 'Category updated successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('category.index')->with($notification);
+        }else{
+            $notification = array(
+                    // 'T-messege' => 'welcome '.$request->name.'!',
+                    'T-messege' => 'something went wrong',
+                    'alert-type' => 'error'
+                );
+                return back()->with($notification);
         }
     }
 }
