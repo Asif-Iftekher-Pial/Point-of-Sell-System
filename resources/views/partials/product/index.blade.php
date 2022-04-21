@@ -80,7 +80,7 @@
                                 aria-label="Default select example">
                                 <option value="">-- Status --</option>
                                 <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
-                                <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>InActive</option>
+                                <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
                             
                             </select>
                             <label class="control-label">Photo</label>

@@ -24,7 +24,8 @@ class ProductController extends Controller
         $suppliers = Supplier::orderBy('id', 'DESC')->get();
         $getData = Product::orderBy('id', 'DESC')->get();
        
-        return view('partials.product.index', compact('suppliers', 'pageTitle', 'getData', 'parentCategory', 'childCategory'));
+        return view('partials.product.index', compact('suppliers', 'pageTitle',
+         'getData', 'parentCategory','childCategory'));
     }
 
     /**
@@ -45,7 +46,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
         $request->validate([
             'product_name' => 'required|string',
             'status' => 'required',
@@ -120,7 +120,13 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $getData=Product::find($id);
+        if($getData){
+            return view('partials.product.edit', compact('getData'));
+        }
+        else{
+            echo "Product not found";
+        }
     }
 
     /**

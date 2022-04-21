@@ -27,20 +27,27 @@
             @endif
             <br>
             <div class="form">
-                <form class="cmxform form-horizontal tasi-form" id="commentForm" method="post" action="{{ route('employee.update',$getData->id) }}" enctype="multipart/form-data" >
+                <form class="cmxform form-horizontal tasi-form" id="commentForm" method="post" action="{{ route('product.update',$getData->id) }}" enctype="multipart/form-data" >
                     @method('patch')
                     @csrf
                     <div class="form-group ">
-                        <label for="name" class="control-label col-lg-2">Name (required)</label>
+                        <label for="name" class="control-label col-lg-2">Product Name (required)</label>
                         <div class="col-lg-10">
-                            <input class=" form-control" id="cname" name="name"  placeholder="{{ $getData->name }}" type="text" required="" aria-required="true">
+                            <input class=" form-control" id="cname" name="product_name"  placeholder="{{ $getData->product_name }}" type="text" required="" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group ">
-                        <label for="cemail" class="control-label col-lg-2">E-Mail (required)</label>
+                        <label for="cemail" class="control-label col-lg-2">Status (required)</label>
                         <div class="col-lg-10">
-                            <input class="form-control " id="cemail" type="email" name="email" placeholder="{{ $getData->email }}" required="" aria-required="true">
+                            <select class="form-control form-white" name="CategoryName"
+                            aria-label="Default select example">
+                            <option value="">-- select category --</option>
+                            @foreach ($parentCategory as $parentCat)
+                                <option value="{{ $parentCat->name }}">{{ $parentCat->name }}</option>
+                            @endforeach
+                        </select> 
                         </div>
+                       
                     </div>
                    <div class="form-group ">
                         <label for="cemail" class="control-label col-lg-2">Phone (required)</label>
