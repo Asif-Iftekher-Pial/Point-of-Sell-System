@@ -3,7 +3,7 @@
  <!-- Page-Title -->
  <div class="row">
     <div class="col-sm-12">
-        <h4 class="pull-left page-title">Employee ID- {{ $getData->id }} !</h4>
+        <h4 class="pull-left page-title">Product ID- {{ $getData->id }} !</h4>
         <ol class="breadcrumb pull-right">
             <li><a href="#">Inventory management</a></li>
             <li class="active">Edit Page</li>
@@ -39,58 +39,102 @@
                     <div class="form-group ">
                         <label for="cemail" class="control-label col-lg-2">Status (required)</label>
                         <div class="col-lg-10">
+                            <select class="form-control form-white" name="status"
+                            aria-label="Default select example">
+                            <option value="">-- Status --</option>
+                            <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
+                            <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                        </select>
+                        </div>
+                    </div>
+                   <div class="form-group ">
+                        <label for="cemail" class="control-label col-lg-2">Category (required)</label>
+                        <div class="col-lg-10">
                             <select class="form-control form-white" name="CategoryName"
                             aria-label="Default select example">
                             <option value="">-- select category --</option>
                             @foreach ($parentCategory as $parentCat)
                                 <option value="{{ $parentCat->name }}">{{ $parentCat->name }}</option>
                             @endforeach
-                        </select> 
-                        </div>
-                       
-                    </div>
-                   <div class="form-group ">
-                        <label for="cemail" class="control-label col-lg-2">Phone (required)</label>
-                        <div class="col-lg-10">
-                            <input class="form-control " id="cemail" type="number" name="phone" placeholder="{{ $getData->phone }}" required="" aria-required="true">
+                        </select>    
                         </div>
                     </div>
                    <div class="form-group ">
-                        <label for="cemail" class="control-label col-lg-2">Experience (required)</label>
+                        <label for="cemail" class="control-label col-lg-2">Child Category (required)</label>
                         <div class="col-lg-10">
-                            <input class="form-control " id="cemail" type="text" name="experience" placeholder="{{ $getData->experience }}" required="" aria-required="true">
+                            <select class="form-control form-white" name="child_cat_id"
+                            aria-label="Default select example">
+                            <option value="">-- select child category --</option>
+                            @foreach ($childCategory as $childCat)
+                                <option value="{{ $childCat->id }}">{{ $childCat->child_CatName }} - parent category -> {{ $childCat->category->name }}</option>
+                            @endforeach
+                        </select>    
                         </div>
                     </div>
                    <div class="form-group ">
-                        <label for="cemail" class="control-label col-lg-2">Salary (required)</label>
+                        <label for="cemail" class="control-label col-lg-2">Supplier (required)</label>
                         <div class="col-lg-10">
-                            <input class="form-control " id="cemail" type="number" name="salary" placeholder="{{ $getData->salary }}" required="" aria-required="true">
+                            <select class="form-control form-white" name="supplier_id"
+                            aria-label="Default select example">
+                            <option value="">-- select Supplier --</option>
+                            @foreach ($suppliers as $supplier)
+                                <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                            @endforeach
+                        </select>   
                         </div>
                     </div>
                    <div class="form-group ">
-                        <label for="cemail" class="control-label col-lg-2">Vacation (required)</label>
+                        <label for="code" class="control-label col-lg-2">Product Code (required)</label>
                         <div class="col-lg-10">
-                            <input class="form-control " id="cemail" type="text" name="vacation" placeholder="{{ $getData->vacation }}" required="" aria-required="true">
+                            <input class="form-control"  type="number" name="product_code" placeholder="{{ $getData->product_code }}" required="" aria-required="true">
                         </div>
                     </div>
                    <div class="form-group ">
-                        <label for="cemail" class="control-label col-lg-2">City (required)</label>
+                        <label for="warehouse" class="control-label col-lg-2">Warehouse (required)</label>
                         <div class="col-lg-10">
-                            <input class="form-control " id="cemail" type="text" name="city" placeholder="{{ $getData->city }}" required="" aria-required="true">
+                            <input class="form-control " id="warehouse" type="text" name="warehouse" placeholder="{{ $getData->warehouse }}" required="" aria-required="true">
                         </div>
                     </div>
                    
                     <div class="form-group ">
-                        <label for="ccomment" class="control-label col-lg-2">Address (required)</label>
+                        <label for="ccomment" class="control-label col-lg-2">Product Route (required)</label>
                         <div class="col-lg-10">
-                            <textarea class="form-control " id="ccomment" name="address" placeholder="{{ $getData->address }}" required="" aria-required="true"></textarea>
+                            <input class="form-control " id="ccomment" name="product_route" placeholder="{{ $getData->product_route }}" required="" aria-required="true">
                         </div>
                     </div>
+                    
+                    <div class="form-group ">
+                        <label for="ccomment" class="control-label col-lg-2">Purchase Date (required)</label>
+                        <div class="col-lg-10">
+                            <input class="form-control " id="ccomment" name="purchase_date" placeholder="{{ $getData->purchase_date }}" required="" aria-required="true">
+                        </div>
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="ccomment" class="control-label col-lg-2">Expire Date (required)</label>
+                        <div class="col-lg-10">
+                            <input class="form-control " id="ccomment" name="expire_date" placeholder="{{ $getData->expire_date }}" required="" aria-required="true">
+                        </div>
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="ccomment" class="control-label col-lg-2">Buying Price (required)</label>
+                        <div class="col-lg-10">
+                            <input class="form-control " id="ccomment" name="buying_price"  type="number" placeholder="{{ $getData->buying_price }}" required="" aria-required="true">
+                        </div>
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="ccomment" class="control-label col-lg-2">Selling Price (required)</label>
+                        <div class="col-lg-10">
+                            <input class="form-control " id="ccomment" name="selling_price" type="number" placeholder="{{ $getData->selling_price }}" required="" aria-required="true">
+                        </div>
+                    </div>
+                    
                     <div class="form-group ">
                     <label class="control-label col-lg-2">Previous Photo</label>
                         <div class="col-lg-10">
-                            <img  style="height:80px" src="{{ asset('backend/employee/images/' . $getData->image) }}" alt="No image">
-                           
+                            <img  style="height:80px" src="{{ asset('backend/products/images/' . $getData->image) }}" alt="No image">
                         </div>
                     </div>
                     <label class="control-label col-lg-2">Photo</label>
