@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\home\HomeController;
+use App\Http\Controllers\Expense\ExpenseController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Customer\CustomerController;
@@ -59,4 +60,7 @@ route::resource('/supplier',SupplierController::class);
 
 // Product
 route::resource('/product',ProductController::class);
+
+// expense
+route::resource('/expense',ExpenseController::class);
 
