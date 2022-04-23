@@ -145,6 +145,19 @@ class ExpenseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $getData = Expense::find($id);
+
+        if ($getData) {
+            # code...
+           $getData->delete();
+            return back();
+        } else {
+            $notification = array(
+                // 'T-messege' => 'welcome '.$request->name.'!',
+                'T-messege' => 'Data not found ',
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
     }
 }
