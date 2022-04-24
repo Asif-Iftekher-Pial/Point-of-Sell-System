@@ -7,6 +7,7 @@ use App\Models\Expense;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 
 class ExpenseController extends Controller
 {
@@ -16,10 +17,13 @@ class ExpenseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   $salereport=[];
+        $fromDate='';
+        $toDate='';
         $pageTitle = "All expense";
         $getData = Expense::orderBy('id', 'DESC')->get();
-        return view('partials.expense.index', compact('pageTitle', 'getData'));
+        return view('partials.expense.index', compact('pageTitle', 'getData','salereport', 'fromDate', 'toDate'));
+        
     }
 
     /**
@@ -118,7 +122,7 @@ class ExpenseController extends Controller
         $findTable = Expense::find($id);
 
         $findTable->fill($data)->save();
-        $findTable->UserName=$currentUser;
+        $findTable->UserName = $currentUser;
         $findTable->save();
         if ($findTable) {
             $notification = array(
@@ -149,7 +153,7 @@ class ExpenseController extends Controller
 
         if ($getData) {
             # code...
-           $getData->delete();
+            $getData->delete();
             return back();
         } else {
             $notification = array(
@@ -159,5 +163,29 @@ class ExpenseController extends Controller
             );
             return back()->with($notification);
         }
+    }
+
+    public function todayExpense()
+    {
+
+        $date = Date('d/m/y');
+        $todayExpense = Expense::where('date', $date)->orderBy('id', 'DESC')->get();
+        return $todayExpense;
+    }
+
+    
+
+    public function filterExpense()
+    {  
+        if ($_GET) {
+            if ($_GET['from_date'] != '' && $_GET['to_date'] != '') //// if not null
+            {
+                $fromDate = date('y-m-d', strtotime($_GET['from_date']));
+                //  dd($fromDate);
+                $toDate = date('y-m-d', strtotime($_GET['to_date']));
+                $salereport = Expense::whereBetween('created_at', [$fromDate, $toDate])->get();
+            }
+        }
+        return view('partials.expense.filterExpense',compact('salereport', 'fromDate', 'toDate'));
     }
 }

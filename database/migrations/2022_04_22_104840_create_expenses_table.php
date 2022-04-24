@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->longText('expenseDetail');
             $table->string('amount');
+            $table->string('year');
             $table->string('month');
             $table->string('date');
             $table->string('UserName')->nullable();
