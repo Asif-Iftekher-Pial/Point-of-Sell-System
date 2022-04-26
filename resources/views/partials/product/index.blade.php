@@ -109,6 +109,11 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Product Information</h3>
+               
+            </div>
+            <div class="pull-right">
+                <a  class="btn btn-purple waves-effect waves-light"href="{{ route('export') }}">
+                    <i class="fa fa-download"></i> Export all product</a>
             </div>
 
             @if ($errors->any())
@@ -134,7 +139,14 @@
                                     <i class="fa fa-plus"></i> Create New
                                 </a>
                             </div>
-
+                            <form action="{{ route('import') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="pull-right" style="margin-bottom: 10px;">
+                                    <label class="control-label" for="file">Import file</label>
+                                    <input class="form-control form-white" type="file" name="importFile" id="">
+                                    <button class="btn btn-sm btn-success waves-effect waves-light" type="submit"><i class="fa fa-upload"></i> Import</button>
+                                </div>
+                            </form>
                             <table id="myTable" class="display">
                                 <thead>
                                     <tr>

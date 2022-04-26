@@ -2,17 +2,48 @@
 
 namespace App\Http\Controllers\Product;
 
-
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Models\ChildCategory;
+use App\Exports\ProductExport;
+use App\Imports\ProductImport;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
+
+
+    public function export() 
+    {
+        return Excel::download(new ProductExport, 'products.xlsx');
+    }
+
+    public function import(Request $request) 
+    {
+       $status= Excel::import(new ProductImport, $request->file('importFile'));
+    //    importFile is coming from blade name input
+        if ($status) {
+            $notification = array(
+                // 'T-messege' => 'welcome '.$request->name.'!',
+                'T-messege' => 'Product imported successfully ',
+                'alert-type' => 'success'
+            );
+            return back()->with($notification);
+        } else {
+            $notification = array(
+                // 'T-messege' => 'welcome '.$request->name.'!',
+                'T-messege' => 'Something went wrong ',
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
+        
+       
+    }
     /**
      * Display a listing of the resource.
      *

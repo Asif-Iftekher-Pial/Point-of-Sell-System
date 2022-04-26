@@ -60,10 +60,15 @@ route::resource('/supplier',SupplierController::class);
 
 // Product
 route::resource('/product',ProductController::class);
+Route::get('/products/export', [ProductController::class,'export'])->name('export');
+Route::post('/products/import', [ProductController::class,'import'])->name('import');
 
 // expense
 route::resource('/expense',ExpenseController::class);
 route::get('/today',[ExpenseController::class,'todayExpense'])->name('todayExpense');
 route::get('/filter',[ExpenseController::class,'filter'])->name('filter');
 route::get('/filter-expenses',[ExpenseController::class,'filterExpense'])->name('filterExpense');
+
+// Sell reports
+
 

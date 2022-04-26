@@ -68,23 +68,16 @@
                 </li>
 
                 <li class="has_sub">
-                    <a href="#" class="waves-effect"><i class="md md-poll"></i><span> Charts </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                    <a href="#" class="waves-effect"><i class="md md-poll"></i><span> Sell Report </span><span class="pull-right"><i class="md md-add"></i></span></a>
                     <ul class="list-unstyled">
                         <li><a href="morris-chart.html">Morris Chart</a></li>
-                        <li><a href="chartjs.html">Chartjs</a></li>
-                        <li><a href="flot-chart.html">Flot Chart</a></li>
-                        <li><a href="peity-chart.html">Peity Charts</a></li>
-                        <li><a href="charts-sparkline.html">Sparkline Charts</a></li>
-                        <li><a href="chart-radial.html">Radial charts</a></li>
-                        <li><a href="other-chart.html">Other Chart</a></li>
                     </ul>
                 </li>
 
                 <li class="has_sub">
-                    <a href="#" class="waves-effect"><i class="md md-place"></i><span> Maps </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                    <a href="#" class="waves-effect"><i class="md md-place"></i><span> Attendence </span><span class="pull-right"><i class="md md-add"></i></span></a>
                     <ul class="list-unstyled">
                         <li><a href="gmap.html"> Google Map</a></li>
-                        <li><a href="vector-map.html"> Vector Map</a></li>
                     </ul>
                 </li>
 

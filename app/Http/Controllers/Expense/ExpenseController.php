@@ -167,10 +167,10 @@ class ExpenseController extends Controller
 
     public function todayExpense()
     {
-
         $date = Date('d/m/y');
         $todayExpense = Expense::where('date', $date)->orderBy('id', 'DESC')->get();
-        return $todayExpense;
+        return view('partials.expense.today',compact('todayExpense'));
+
     }
 
     
