@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\POS\PosController;
 use App\Http\Controllers\home\HomeController;
 use App\Http\Controllers\Expense\ExpenseController;
 use App\Http\Controllers\Product\ProductController;
@@ -69,6 +70,7 @@ route::get('/today',[ExpenseController::class,'todayExpense'])->name('todayExpen
 route::get('/filter',[ExpenseController::class,'filter'])->name('filter');
 route::get('/filter-expenses',[ExpenseController::class,'filterExpense'])->name('filterExpense');
 
-// Sell reports
+//pos
+route::resource('/pos',PosController::class);
 
 
