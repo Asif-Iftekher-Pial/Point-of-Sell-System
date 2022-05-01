@@ -11,7 +11,7 @@ class Product extends Model
     protected $fillable=[
         'product_name','child_cat_id','supplier_id','product_code','warehouse',
         'product_route','image','purchase_date','expire_date','buying_price','selling_price',
-        'status','CategoryName'
+        'status','CategoryName','stock',
     ];
     
     public function childCategory(){

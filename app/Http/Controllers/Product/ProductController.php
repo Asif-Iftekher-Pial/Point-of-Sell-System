@@ -92,6 +92,7 @@ class ProductController extends Controller
             'expire_date' => 'required|string',
             'buying_price' => 'required|numeric',
             'selling_price' => 'required|numeric',
+            'stock' => 'required|numeric',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -113,6 +114,7 @@ class ProductController extends Controller
         'purchase_date' => $request->purchase_date,
         'expire_date' => $request->expire_date,
         'buying_price' => $request->buying_price,
+        'stock' => $request->stock,
         'selling_price' => $request->selling_price,
         'image'=>$filename
         ]);
@@ -186,6 +188,7 @@ class ProductController extends Controller
             'purchase_date' => 'required|string',
             'expire_date' => 'required|string',
             'buying_price' => 'required|numeric',
+            'stock' => 'required|numeric',
             'selling_price' => 'required|numeric',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -214,6 +217,7 @@ class ProductController extends Controller
         'purchase_date' => $request->purchase_date,
         'expire_date' => $request->expire_date,
         'buying_price' => $request->buying_price,
+        'stock' => $request->stock,
         'selling_price' => $request->selling_price,
         'image'=>$filename
         ]);

@@ -72,5 +72,9 @@ route::get('/filter-expenses',[ExpenseController::class,'filterExpense'])->name(
 
 //pos
 route::resource('/pos',PosController::class);
+route::post('/addTocart/{id}',[PosController::class,'addtocart'])->name('addtocart');
+route::get('/delete-cart/{rowId}',[PosController::class,'deleteCart'])->name('delete.cart');
+route::post('/update-cart/{rowId}',[PosController::class,'updateCart'])->name('qty.update');
+route::post('/create-invoice',[PosController::class,'createInvoice'])->name('create.invoice');
 
 

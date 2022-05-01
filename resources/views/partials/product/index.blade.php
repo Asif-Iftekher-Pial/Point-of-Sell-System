@@ -75,6 +75,10 @@
                             <label class="control-label">Selling Price</label>
                             <input class="form-control form-white" required placeholder="Selling Price" type="number"
                                 name="selling_price" />
+                            <label class="control-label">Stock</label>
+                            <input class="form-control form-white" required placeholder="stock" type="number"
+                                name="stock" />
+                            
                             <label class="control-label">Status</label>
                             <select class="form-control form-white" name="status"
                                 aria-label="Default select example">
@@ -155,6 +159,7 @@
                                         <th>Status</th>
                                         <th>Product Name</th>
                                         <th>Warehouse</th>
+                                        <th>Stock</th>
                                         <th>Photo</th>
                                         <th>Buying Price</th>
                                         <th>Selling Price</th>
@@ -196,6 +201,7 @@
                                             </td>
                                             <td>{{ $item->product_name }}</td>
                                             <td>{{ $item->warehouse }}</td>
+                                            <td>{{ $item->stock }}</td>
                                             <td>
                                                 <img style="height:80px"
                                                     src="{{ asset('backend/products/images/' . $item->image) }}"

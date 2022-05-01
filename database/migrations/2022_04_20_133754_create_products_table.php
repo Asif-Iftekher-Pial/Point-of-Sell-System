@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('expire_date');
             $table->string('buying_price');
             $table->string('selling_price');
+            $table->integer('stock');
             $table->timestamps();
         });
     }

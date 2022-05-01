@@ -130,6 +130,13 @@
                             <input class="form-control " id="ccomment" name="selling_price" type="number" placeholder="{{ $getData->selling_price }}" required="" aria-required="true">
                         </div>
                     </div>
+                    <div class="form-group ">
+                        <label for="ccomment" class="control-label col-lg-2">stock (required)</label>
+                        <div class="col-lg-10">
+                            <input class="form-control " id="ccomment" name="stock" type="number" placeholder="{{ $getData->stock }}" required="" aria-required="true">
+                        </div>
+                    </div>
+
                     
                     <div class="form-group ">
                     <label class="control-label col-lg-2">Previous Photo</label>

@@ -28,6 +28,7 @@ class ProductImport implements ToModel
             'selling_price' => $row[10],
             'status' => $row[11],
             'CategoryName' => $row[12],
+            'stock' => $row[13],
         ]);
        
     }
