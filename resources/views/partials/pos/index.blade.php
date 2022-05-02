@@ -168,7 +168,6 @@
                     </select>
                 </div>
                 <div class="price_card text-center">
-    
                     <ul class="price-features" style="border: 1px solid gray;">
                         <table class="table">
                             <thead class="bg-success">
@@ -188,11 +187,12 @@
                                 @foreach ($content as $cartItem)
                                     <tr>
                                         <th>{{ $cartItem->name }}</th>
-                                        <form action="{{ route('qty.update', $cartItem->rowId) }}" method="post">
+                                        
+                                        <form method="post">
                                             @csrf
                                             <td style="display: flex"><input class="form-control" type="number" id="input_qty"
                                                     value="{{ $cartItem->qty }}" name="qty" min="1" style="width: 50px">
-                                                <button class="btn btn-sm btn-info" style="margin-top: 0px;" type="submit"><i
+                                                <button formaction="{{ route('qty.update', $cartItem->rowId) }}" class="btn btn-sm btn-info" style="margin-top: 0px;" type="submit"><i
                                                         class="fa fa-check"></i></button>
                                             </td>
                                         </form>

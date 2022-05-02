@@ -16,13 +16,16 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->integer('customer_id');
+            $table->string('invoice_number');
+            $table->string('order_number');
             $table->string('customer_name');
             $table->string('address');
             $table->string('phone');
-            $table->enum('payment_status',['paid','partial','due'])->default('due');
-            $table->string('partial_paid')->nullable();
+            $table->enum('payment_status',['paid','partial'])->default('paid');
+            $table->enum('partial_paid',['yes','no'])->default('no');
+            $table->string('partial_amount')->nullable();
             $table->string('due_amount')->nullable();
-            $table->string('shop_address');
+            $table->string('shop_name');
             $table->string('total_amount');
             $table->timestamps();
         });

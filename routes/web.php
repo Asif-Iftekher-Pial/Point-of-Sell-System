@@ -76,5 +76,6 @@ route::post('/addTocart/{id}',[PosController::class,'addtocart'])->name('addtoca
 route::get('/delete-cart/{rowId}',[PosController::class,'deleteCart'])->name('delete.cart');
 route::post('/update-cart/{rowId}',[PosController::class,'updateCart'])->name('qty.update');
 route::post('/create-invoice',[PosController::class,'createInvoice'])->name('create.invoice');
+route::post('/submit-invoice',[PosController::class,'submitInvoice'])->name('submit.invoice');
 
 
