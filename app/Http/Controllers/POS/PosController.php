@@ -128,7 +128,7 @@ class PosController extends Controller
         $totalAmount = floatval($total);
         //    dd($totalAmount);
 
-       
+
         $order = new Order;
         $order->customer_id = $request->customer_id;
         $order->customer_name = $request->name;
@@ -140,13 +140,13 @@ class PosController extends Controller
         $order->total_amount = $totalAmount;
         $order->partial_amount = $request->partial_amount;
         // $order->partial_paid = $request->partial_paid;
-        
+
         $order->save();
         // dd($order);
 
         $finding = Order::find($order->id);
         //  dd($finding);
-        $getpartialAmount= $finding->partial_amount;
+        $getpartialAmount = $finding->partial_amount;
         // convert partial amount
         $partial = (float) str_replace(',', '', $getpartialAmount); //taking  partial amount from request
         $partialAmount = floatval($partial);
@@ -158,17 +158,15 @@ class PosController extends Controller
             $check = $finding->total_amount;
             $total = (float) str_replace(',', '', $check);
             $totalAmount = floatval($total);
-            
+
             if ($partialAmount > $totalAmount) {
                 $notification = array(
                     'T-messege' => 'Partial amount cannot be more than total amount ',
                     'alert-type' => 'error'
                 );
-            } 
-            else 
-            {
+            } else {
                 // dd('ok');
-                $sum = $totalAmount - $partialAmount; 
+                $sum = $totalAmount - $partialAmount;
                 $finding->partial_amount = $partialAmount;
                 $finding->due_amount = $sum;
                 $finding->payment_status = "partial";
@@ -176,18 +174,112 @@ class PosController extends Controller
                 $status = $finding->save();
                 // dd($status);
                 // Cart::destroy();
-                if ($status) 
-                {
+                if ($status) {
                     // store data inProductDetail
 
                     $cartItem = Cart::content();
                     // dd($cartItem->id);
                     foreach ($cartItem as $value) {
-    
                         $id = $value->id;
-                        $pic =  Product::where('id', $id)->first();
+                        $product =  Product::where('id', $id)->first();
                         //    dd($pic);
-                        $img = $pic->image;
+                        $img = $product->image;
+                        // dd($img);
+                        $stock = $product->stock;
+                        $Stock = (float) str_replace(',', '', $stock);
+                        $actualStock =intval($Stock);
+                        // dd($actualStock); //ok
+                        $cartQty = $value->qty;
+                        $convertQty = (float) str_replace(',', '', $cartQty);
+                        $orderQty = intval($convertQty);
+                        // dd($orderQty); //ok
+                        if ($actualStock <  $orderQty) {
+                            $notification = array(
+                                // 'T-messege' => 'welcome '.$request->name.'!',
+                                'T-messege' => $product->product_name.' doesnt have enough Quantity in stock',
+                                'alert-type' => 'error'
+                            );
+                            return redirect()->route('pos.index')->with($notification);
+                       
+                        } else {
+                            // dd('out');
+                            $lastStock = $actualStock - $orderQty;
+                            $product->update(['stock' => $lastStock]);
+                            // dd($img);
+                            $orderDetail = new OrderDetail;
+                            $orderDetail->order_id = $finding->id;
+                            $orderDetail->customer_id = $finding->customer_id;
+                            $orderDetail->product_id = $value->id;
+                            $orderDetail->product_name = $value->name;
+                            $orderDetail->qty = $value->qty;
+                            $orderDetail->price = $value->price;
+                            $orderDetail->image = $img;
+                            $secondstatus = $orderDetail->save();
+                            if ($secondstatus) {
+                                Cart::destroy();
+                                $notification = array(
+                                    // 'T-messege' => 'welcome '.$request->name.'!',
+                                    'T-messege' => 'Congratulation ! Order placed successfully!',
+                                    'alert-type' => 'success'
+                                );
+                                return redirect()->route('pos.index')->with($notification);
+                            } else {
+                                $notification = array(
+                                    // 'T-messege' => 'welcome '.$request->name.'!',
+                                    'T-messege' => 'Something went wrong ',
+                                    'alert-type' => 'error'
+                                );
+                                return redirect()->route('pos.index')->with($notification);
+                            }
+                        }
+                    }
+                } else {
+                    $notification = array(
+                        // 'T-messege' => 'welcome '.$request->name.'!',
+                        'T-messege' => 'Something went wrong ',
+                        'alert-type' => 'error'
+                    );
+                    return redirect()->route('pos.index')->with($notification);
+                }
+            }
+        } else {
+            // if there is no partial payment
+            // dd('no partials');
+            $check = $finding->total_amount;
+            $total = (float) str_replace(',', '', $check);
+            $totalAmount = floatval($total);
+            $finding->payment_status = "paid";
+            $status = $finding->save();
+
+            if ($status) {
+                // dd('order updated');
+                // store data inProductDetail
+
+                $cartItem = Cart::content();
+                // dd($cartItem->id);
+                foreach ($cartItem as $value) {
+
+                    $id = $value->id;
+                    $product =  Product::where('id', $id)->first();
+                    $img = $product->image;
+                    //    dd($pic);
+                    $stock = $product->stock;
+                    $Stock = (float) str_replace(',', '', $stock);
+                    $actualStock =intval($Stock);
+                    $cartQty = $value->qty;
+                    $convertQty = (float) str_replace(',', '', $cartQty);
+                    $orderQty = intval($convertQty);
+                    if ($actualStock <  $orderQty) {
+                        // dd($orderQty);
+                        $notification = array(
+                            // 'T-messege' => 'welcome '.$request->name.'!',
+                            'T-messege' => $product->product_name.' doesnt have enough Quantity in stock',
+                            'alert-type' => 'error'
+                        );
+                        return redirect()->route('pos.index')->with($notification);
+                    } else {
+                        $lastStock = $actualStock - $orderQty;
+                        $product->update(['stock' => $lastStock]);
                         // dd($img);
                         $orderDetail = new OrderDetail;
                         $orderDetail->order_id = $finding->id;
@@ -199,22 +291,15 @@ class PosController extends Controller
                         $orderDetail->image = $img;
                         $secondstatus = $orderDetail->save();
                     }
-                    if ($secondstatus) {
-                        Cart::destroy();
-                        $notification = array(
-                            // 'T-messege' => 'welcome '.$request->name.'!',
-                            'T-messege' => 'Congratulation ! Order placed successfully!',
-                            'alert-type' => 'success'
-                        );
-                        return redirect()->route('pos.index')->with($notification);
-                    } else {
-                        $notification = array(
-                            // 'T-messege' => 'welcome '.$request->name.'!',
-                            'T-messege' => 'Something went wrong ',
-                            'alert-type' => 'error'
-                        );
-                        return redirect()->route('pos.index')->with($notification);
-                    }
+                }
+                if ($secondstatus) {
+                    Cart::destroy();
+                    $notification = array(
+                        // 'T-messege' => 'welcome '.$request->name.'!',
+                        'T-messege' => 'Congratulation ! Order placed successfully!',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->route('pos.index')->with($notification);
                 } else {
                     $notification = array(
                         // 'T-messege' => 'welcome '.$request->name.'!',
@@ -223,58 +308,7 @@ class PosController extends Controller
                     );
                     return redirect()->route('pos.index')->with($notification);
                 }
-            }
-        }
-        else{
-            // if there is no partial payment
-            // dd('no partials');
-            $check = $finding->total_amount;
-            $total = (float) str_replace(',', '', $check);
-            $totalAmount = floatval($total);
-            $finding->payment_status = "paid";
-            $status = $finding->save();
-
-            if($status){
-                // dd('order updated');
-                 // store data inProductDetail
-
-                 $cartItem = Cart::content();
-                 // dd($cartItem->id);
-                 foreach ($cartItem as $value) {
- 
-                     $id = $value->id;
-                     $pic =  Product::where('id', $id)->first();
-                     //    dd($pic);
-                     $img = $pic->image;
-                     // dd($img);
-                     $orderDetail = new OrderDetail;
-                     $orderDetail->order_id = $finding->id;
-                     $orderDetail->customer_id = $finding->customer_id;
-                     $orderDetail->product_id = $value->id;
-                     $orderDetail->product_name = $value->name;
-                     $orderDetail->qty = $value->qty;
-                     $orderDetail->price = $value->price;
-                     $orderDetail->image = $img;
-                     $secondstatus = $orderDetail->save();
-                 }
-                 if ($secondstatus) {
-                     Cart::destroy();
-                     $notification = array(
-                         // 'T-messege' => 'welcome '.$request->name.'!',
-                         'T-messege' => 'Congratulation ! Order placed successfully!',
-                         'alert-type' => 'success'
-                     );
-                     return redirect()->route('pos.index')->with($notification);
-                 } else {
-                     $notification = array(
-                         // 'T-messege' => 'welcome '.$request->name.'!',
-                         'T-messege' => 'Something went wrong ',
-                         'alert-type' => 'error'
-                     );
-                     return redirect()->route('pos.index')->with($notification);
-                 }
-
-            }else{
+            } else {
                 $notification = array(
                     // 'T-messege' => 'welcome '.$request->name.'!',
                     'T-messege' => 'Something went wrong ',
@@ -282,7 +316,6 @@ class PosController extends Controller
                 );
                 return redirect()->route('pos.index')->with($notification);
             }
-        
         }
     }
 
