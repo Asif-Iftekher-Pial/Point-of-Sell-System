@@ -63,7 +63,7 @@
                                 <div class="form-group">
                                     <label for="field-6" class="control-label">Partial payment?</label>
                                     <br>
-                                    <input type="checkbox" name="partial_paid" value="yes" id="partial_paid"> Yes
+                                    <input type="checkbox" name="partial_paid"  id="partial_paid"> Yes
                                    
                                 </div>
                             </div>
@@ -151,8 +151,8 @@
                                                 <td>{{ $item->id }}</td>
                                                 <td>{{ $item->name }}</td>
                                                 <td>{{ $item->qty }}</td>
-                                                <td>${{ $item->price }}</td>
-                                                <td>${{ $item->qty * $item->price }}</td>
+                                                <td>BDT: {{ $item->price }}</td>
+                                                <td>BDT: {{ $item->qty * $item->price }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

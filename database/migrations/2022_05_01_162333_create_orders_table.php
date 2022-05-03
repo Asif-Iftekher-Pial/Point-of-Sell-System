@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('address');
             $table->string('phone');
             $table->enum('payment_status',['paid','partial'])->default('paid');
-            $table->enum('partial_paid',['yes','no'])->default('no');
-            $table->string('partial_amount')->nullable();
+            $table->string('partial_paid')->default('no');
+            $table->string('partial_amount')->default()->nullable();
             $table->string('due_amount')->nullable();
             $table->string('shop_name');
             $table->string('total_amount');
