@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('due_amount')->nullable();
             $table->string('shop_name');
             $table->string('total_amount');
+            $table->string('order_status')->default('confirmed');
             $table->timestamps();
         });
     }

@@ -161,7 +161,7 @@ class PosController extends Controller
 
             if ($partialAmount > $totalAmount) {
                 $notification = array(
-                    'T-messege' => 'Partial amount cannot be more than total amount ',
+                    'T-messege' => 'Partial amount cannot be more than total amount',
                     'alert-type' => 'error'
                 );
             } else {
@@ -171,38 +171,34 @@ class PosController extends Controller
                 $finding->due_amount = $sum;
                 $finding->payment_status = "partial";
                 $finding->partial_paid = "yes";
+                $finding->order_status = "pending";
                 $status = $finding->save();
                 // dd($status);
                 // Cart::destroy();
                 if ($status) {
-                    // store data inProductDetail
+                    // store data in OrderDetail
 
                     $cartItem = Cart::content();
                     // dd($cartItem->id);
                     foreach ($cartItem as $value) {
                         $id = $value->id;
                         $product =  Product::where('id', $id)->first();
-                        //    dd($pic);
                         $img = $product->image;
-                        // dd($img);
                         $stock = $product->stock;
                         $Stock = (float) str_replace(',', '', $stock);
-                        $actualStock =intval($Stock);
-                        // dd($actualStock); //ok
+                        $actualStock = intval($Stock);
                         $cartQty = $value->qty;
                         $convertQty = (float) str_replace(',', '', $cartQty);
                         $orderQty = intval($convertQty);
-                        // dd($orderQty); //ok
                         if ($actualStock <  $orderQty) {
+                            // dd($orderQty);
                             $notification = array(
                                 // 'T-messege' => 'welcome '.$request->name.'!',
-                                'T-messege' => $product->product_name.' doesnt have enough Quantity in stock',
+                                'T-messege' => $product->product_name . ' doesnt have enough Quantity in stock',
                                 'alert-type' => 'error'
                             );
                             return redirect()->route('pos.index')->with($notification);
-                       
                         } else {
-                            // dd('out');
                             $lastStock = $actualStock - $orderQty;
                             $product->update(['stock' => $lastStock]);
                             // dd($img);
@@ -215,23 +211,73 @@ class PosController extends Controller
                             $orderDetail->price = $value->price;
                             $orderDetail->image = $img;
                             $secondstatus = $orderDetail->save();
-                            if ($secondstatus) {
-                                Cart::destroy();
-                                $notification = array(
-                                    // 'T-messege' => 'welcome '.$request->name.'!',
-                                    'T-messege' => 'Congratulation ! Order placed successfully!',
-                                    'alert-type' => 'success'
-                                );
-                                return redirect()->route('pos.index')->with($notification);
-                            } else {
-                                $notification = array(
-                                    // 'T-messege' => 'welcome '.$request->name.'!',
-                                    'T-messege' => 'Something went wrong ',
-                                    'alert-type' => 'error'
-                                );
-                                return redirect()->route('pos.index')->with($notification);
-                            }
+                        
                         }
+                        // $id = $value->id;
+                        // $product =  Product::where('id', $id)->first();
+                        // $img = $product->image;
+                        // $stock = $product->stock;
+                        // $Stock = (float) str_replace(',', '', $stock);
+                        // $actualStock =intval($Stock);
+                        // $cartQty = $value->qty;
+                        // $convertQty = (float) str_replace(',', '', $cartQty);
+                        // $orderQty = intval($convertQty);
+                        // // dd($orderQty); //ok
+                        // if ($actualStock <  $orderQty) {
+                        //     $notification = array(
+                        //         // 'T-messege' => 'welcome '.$request->name.'!',
+                        //         'T-messege' => $product->product_name.' doesnt have enough Quantity in stock',
+                        //         'alert-type' => 'error'
+                        //     );
+                        //     return redirect()->route('pos.index')->with($notification);
+
+                        // } else {
+                        //     // dd('out');
+                        //     $lastStock = $actualStock - $orderQty;
+                        //     $product->update(['stock' => $lastStock]);
+                        //     // dd($img);
+                        //     $orderDetail = new OrderDetail;
+                        //     $orderDetail->order_id = $finding->id;
+                        //     $orderDetail->customer_id = $finding->customer_id;
+                        //     $orderDetail->product_id = $value->id;
+                        //     $orderDetail->product_name = $value->name;
+                        //     $orderDetail->qty = $value->qty;
+                        //     $orderDetail->price = $value->price;
+                        //     $orderDetail->image = $img;
+                        //     $secondstatus = $orderDetail->save();
+                        //     if ($secondstatus) {
+                        //         Cart::destroy();
+                        //         $notification = array(
+                        //             // 'T-messege' => 'welcome '.$request->name.'!',
+                        //             'T-messege' => 'Congratulation ! Order placed successfully!',
+                        //             'alert-type' => 'success'
+                        //         );
+                        //         return redirect()->route('pos.index')->with($notification);
+                        //     } else {
+                        //         $notification = array(
+                        //             // 'T-messege' => 'welcome '.$request->name.'!',
+                        //             'T-messege' => 'Something went wrong ',
+                        //             'alert-type' => 'error'
+                        //         );
+                        //         return redirect()->route('pos.index')->with($notification);
+                        //     }
+                        // }
+                    }
+                    if ($secondstatus) {
+                        Cart::destroy();
+                        $notification = array(
+                            // 'T-messege' => 'welcome '.$request->name.'!',
+                            'T-messege' => 'Congratulation ! Order placed successfully!',
+                            'alert-type' => 'success'
+                        );
+                        return redirect()->route('pos.index')->with($notification);
+                    } else {
+                        $notification = array(
+                            // 'T-messege' => 'welcome '.$request->name.'!',
+                            'T-messege' => 'Something went wrong ',
+                            'alert-type' => 'error'
+                        );
+                        return redirect()->route('pos.index')->with($notification);
                     }
                 } else {
                     $notification = array(
@@ -265,7 +311,7 @@ class PosController extends Controller
                     //    dd($pic);
                     $stock = $product->stock;
                     $Stock = (float) str_replace(',', '', $stock);
-                    $actualStock =intval($Stock);
+                    $actualStock = intval($Stock);
                     $cartQty = $value->qty;
                     $convertQty = (float) str_replace(',', '', $cartQty);
                     $orderQty = intval($convertQty);
@@ -273,7 +319,7 @@ class PosController extends Controller
                         // dd($orderQty);
                         $notification = array(
                             // 'T-messege' => 'welcome '.$request->name.'!',
-                            'T-messege' => $product->product_name.' doesnt have enough Quantity in stock',
+                            'T-messege' => $product->product_name . ' doesnt have enough Quantity in stock',
                             'alert-type' => 'error'
                         );
                         return redirect()->route('pos.index')->with($notification);

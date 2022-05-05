@@ -10,6 +10,7 @@ use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\Employees\EmployeeController;
 use App\Http\Controllers\auth\AuthenticationController;
+use App\Http\Controllers\Order\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +57,7 @@ route::put('/update-child/{id}',[CategoryController::class,'updateChild'])->name
 // Customers  
 route::resource('/customer',CustomerController::class);
 
-// Customers  
+// Suppliers  
 route::resource('/supplier',SupplierController::class);
 
 // Product
@@ -77,5 +78,9 @@ route::get('/delete-cart/{rowId}',[PosController::class,'deleteCart'])->name('de
 route::post('/update-cart/{rowId}',[PosController::class,'updateCart'])->name('qty.update');
 route::post('/create-invoice',[PosController::class,'createInvoice'])->name('create.invoice');
 route::post('/submit-invoice',[PosController::class,'submitInvoice'])->name('submit.invoice');
+
+//Orders
+
+route::resource('/order',OrderController::class);
 
 

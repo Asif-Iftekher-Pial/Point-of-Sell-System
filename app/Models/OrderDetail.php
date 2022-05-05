@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class OrderDetail extends Model
 {
@@ -12,4 +13,7 @@ class OrderDetail extends Model
         'order_id','customer_id','product_id','product_name','qty','image','price'
     ];
     
+    public function orders(){
+        return $this->belongsTo(Order::class,'order_id','id');
+    }
 }

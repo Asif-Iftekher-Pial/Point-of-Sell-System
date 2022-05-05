@@ -11,7 +11,11 @@ class Order extends Model
     protected $fillable=[
         'customer_id','customer_name','address','phone','payment_status',
         'partial_paid','partial_amount','due_amount','shop_name','total_amount',
-        'invoice_number','order_number'
+        'invoice_number','order_number','order_status'
     ];
+
+    public function orderDetail(){
+        return $this->hasMany(OrderDetail::class,'order_id','id');
+    }
    
 }

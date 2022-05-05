@@ -73,6 +73,12 @@
                         <li><a href="{{ route('pos.index') }}">Point of sell</a></li>
                     </ul>
                 </li>
+                <li class="has_sub">
+                    <a href="#" class="waves-effect"><i class="md md-view-list"></i><span>Orders</span><span class="pull-right"><i class="md md-add"></i></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ route('order.index') }}">All Orders</a></li>
+                    </ul>
+                </li>
 
                 <li class="has_sub">
                     <a href="#" class="waves-effect"><i class="md md-place"></i><span> Attendence </span><span class="pull-right"><i class="md md-add"></i></span></a>
